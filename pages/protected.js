@@ -1,11 +1,13 @@
+import { useEffect } from "react";
 import { useWeb3React } from "@web3-react/core";
 import { connectors } from "../src/utils/connectors";
-import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 
 export default function Protected() {
-    const { account, activate, deactivate, active } = useWeb3React();
+
+    // NOTE: this is not secure 
+    const { account, activate } = useWeb3React();
 
     const router = useRouter();
 
@@ -22,14 +24,9 @@ export default function Protected() {
     }, [activate]);
 
 
-
     return (
         <div>
             Protected Page
-
-            {active ? "YES ACTIVE" : "NOOOOOOOOOOOOOOOO"}
-
-
         </div>
     )
 }

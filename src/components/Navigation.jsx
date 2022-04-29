@@ -16,6 +16,10 @@ export default function Navigation() {
                 <a>Protected</a>
             </Link>
 
+            <Link href="/dashboard/new">
+                <a>Create Project</a>
+            </Link>
+
         </div>
     )
 }
