@@ -1,15 +1,15 @@
-import React, { useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../src/utils/firebase";
+import Link from "next/link";
 
 const Home = () => {
-  useEffect(() => {
-    getDocs(collection(db, "test")).then((snapshot) =>
-      snapshot.docs.map((doc) => console.log(doc.data()))
-    );
-  }, []);
+  return (
+    <div>
+      <p>Home Page</p>
 
-  return <div>Home Page</div>;
+      <Link href='/login'>
+        <a>Login</a>
+      </Link>
+    </div>
+  );
 };
 
 export default Home;
