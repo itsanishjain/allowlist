@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { uploadFile } from "../utils/helpers";
 import { addDoc, collection } from "firebase/firestore";
+import { db, storage } from "../utils/firebase";
 
 // import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-// import { db, storage } from "../utils/firebase";
 
 // const uploadFile = async (path, file) => {
 //   const storageRef = ref(storage, `${path}/${file.name}`);

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { addDoc, collection } from "firebase/firestore";
+import { db, storage } from "../utils/firebase";
 import { uploadFile } from '../utils/helpers'
 
 export default function Form() {
@@ -43,23 +44,25 @@ export default function Form() {
 
         const image1 = await uploadFile(
             `projectsImage`,
-            imageSrc.projectImageFile
+            formValues.profileImage
         );
 
         const image2 = await uploadFile(
             `projectsImage`,
-            imageSrc.bannerImageFile
+            formValues.bannerImage
         );
 
-        addDoc(collection(db, "projects"), {
-            ...formValues,
-            profileImage: image1,
-            bannerImage: image2,
-        })
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err));
-
-
+        try {
+            const response = await addDoc(collection(db, "projects"), {
+                ...formValues,
+                profileImage: image1,
+                bannerImage: image2,
+            })
+            console.log({ response })
+        }
+        catch (error) {
+            console.log("ERROR in submitting form", error)
+        }
     }
 
     return (
