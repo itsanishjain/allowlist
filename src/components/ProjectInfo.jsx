@@ -4,20 +4,11 @@ import { uploadFile } from "../utils/helpers";
 import { addDoc, collection } from "firebase/firestore";
 import { db, storage } from "../utils/firebase";
 
-// import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
-// const uploadFile = async (path, file) => {
-//   const storageRef = ref(storage, `${path}/${file.name}`);
-//   await uploadBytes(storageRef, file);
-//   return await getDownloadURL(storageRef);
-// };
-
-
-
-const ProjectInfo = () => {
+const ProjectInfo = ({ data }) => {
   const [project, setProject] = useState({
-    name: "",
-    description: "",
+    name: data.name,
+    description: data.description,
     profileImage: "",
     bannerImage: "",
     slug: "",
@@ -54,24 +45,27 @@ const ProjectInfo = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const img1 = await uploadFile(
-      `projects/${project.id}`,
+    
+    const image1 = await uploadFile(
+      `projectsImage`,
       imageSrc.projectImageFile
     );
 
-    const img2 = await uploadFile(
-      `projects/${project.id}`,
+    const image2 = await uploadFile(
+      `projectsImage`,
       imageSrc.bannerImageFile
     );
 
     addDoc(collection(db, "projects"), {
       ...project,
-      profileImage: img1,
-      bannerImage: img2,
+      profileImage: image1,
+      bannerImage: image2,
     })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
+
+
 
   return (
     <div>

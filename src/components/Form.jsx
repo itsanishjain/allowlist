@@ -2,8 +2,11 @@ import { useState } from 'react'
 import { addDoc, collection } from "firebase/firestore";
 import { db, storage } from "../utils/firebase";
 import { uploadFile } from '../utils/helpers'
+import { useRouter } from 'next/router';
 
 export default function Form() {
+
+    const router = useRouter();
 
     const [formValues, setFormValues] = useState({
         name: "", description: "", profileImage: "", bannerImage: ""
@@ -15,7 +18,6 @@ export default function Form() {
     })
 
     const onImageChange = (e) => {
-
         const reader = new FileReader();
         reader.onload = function (onLoadEvent) {
             setImageSrc((prevValues) => (
@@ -24,7 +26,6 @@ export default function Form() {
 
         }
         reader.readAsDataURL(e.target.files[0]);
-
         setFormValues((prevValues) => (
             { ...prevValues, [e.target.name]: e.target.files[0] }
         ))
@@ -59,6 +60,8 @@ export default function Form() {
                 bannerImage: image2,
             })
             console.log({ response })
+            console.log(response.id)
+            router.push(`/dashboard/${response.id}/settings`)
         }
         catch (error) {
             console.log("ERROR in submitting form", error)

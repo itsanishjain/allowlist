@@ -52,7 +52,7 @@ export default function Wallet() {
 
 
     return (
-        <div>
+        <div className="space-y-10">
             Wallet
             <br />
             {
