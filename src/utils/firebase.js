@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
-initializeApp({
+const app = initializeApp({
   apiKey: "AIzaSyAj2bmupAzNZ7eSNsOA3n1uoOrsbsKcV3k",
   authDomain: "allowlist-51697.firebaseapp.com",
   projectId: "allowlist-51697",
@@ -12,7 +12,7 @@ initializeApp({
   measurementId: "G-8VC2L2RBZ3",
 });
 
-const db = getFirestore();
-const storage = getStorage();
+const db = getFirestore(app);
+const storage = getStorage(app);
 
 export { db, storage };
