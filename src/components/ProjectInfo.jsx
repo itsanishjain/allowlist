@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { uploadFile } from "../utils/helpers";
 import { addDoc, collection } from "firebase/firestore";
-import { db, storage } from "../utils/firebase";
 
-const uploadFile = async (path, file) => {
-  const storageRef = ref(storage, `${path}/${file.name}`);
-  await uploadBytes(storageRef, file);
-  return await getDownloadURL(storageRef);
-};
+// import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+// import { db, storage } from "../utils/firebase";
+
+// const uploadFile = async (path, file) => {
+//   const storageRef = ref(storage, `${path}/${file.name}`);
+//   await uploadBytes(storageRef, file);
+//   return await getDownloadURL(storageRef);
+// };
+
+
 
 const ProjectInfo = () => {
   const [project, setProject] = useState({
@@ -70,103 +74,105 @@ const ProjectInfo = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type='text'
-        name='name'
-        value={project.name}
-        placeholder='Project name'
-        onChange={handleChange}
-      />
-      <input
-        type='text'
-        name='description'
-        value={project.description}
-        placeholder='Project description'
-        onChange={handleChange}
-      />
-      <input
-        type='text'
-        name='slug'
-        value={project.slug}
-        placeholder='Slug'
-        onChange={handleChange}
-      />
-
-      <input
-        type='file'
-        accept='image/*'
-        name='projectImage'
-        onChange={handleImageChange}
-      />
-      {imageSrc.projectImageSrc && (
-        <Image
-          src={imageSrc.projectImageSrc}
-          alt='Project image'
-          width={200}
-          height={200}
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type='text'
+          name='name'
+          value={project.name}
+          placeholder='Project name'
+          onChange={handleChange}
         />
-      )}
-
-      <input
-        type='file'
-        accept='image/*'
-        name='bannerImage'
-        onChange={handleImageChange}
-      />
-      {imageSrc.bannerImageSrc && (
-        <Image
-          src={imageSrc.bannerImageSrc}
-          alt='Banner image'
-          width={200}
-          height={200}
+        <input
+          type='text'
+          name='description'
+          value={project.description}
+          placeholder='Project description'
+          onChange={handleChange}
         />
-      )}
+        <input
+          type='text'
+          name='slug'
+          value={project.slug}
+          placeholder='Slug'
+          onChange={handleChange}
+        />
 
-      <input
-        type='text'
-        name='link'
-        value={project.link}
-        placeholder='Official link'
-        onChange={handleChange}
-      />
+        <input
+          type='file'
+          accept='image/*'
+          name='projectImage'
+          onChange={handleImageChange}
+        />
+        {imageSrc.projectImageSrc && (
+          <Image
+            src={imageSrc.projectImageSrc}
+            alt='Project image'
+            width={200}
+            height={200}
+          />
+        )}
 
-      <input
-        type='checkbox'
-        name='isPrivate'
-        value={project.isPrivate}
-        onChange={handleChange}
-      />
+        <input
+          type='file'
+          accept='image/*'
+          name='bannerImage'
+          onChange={handleImageChange}
+        />
+        {imageSrc.bannerImageSrc && (
+          <Image
+            src={imageSrc.bannerImageSrc}
+            alt='Banner image'
+            width={200}
+            height={200}
+          />
+        )}
 
-      <input
-        type='datetime-local'
-        name='mintDate'
-        value={project.mintDate}
-        onChange={handleChange}
-      />
-      <input
-        type='time'
-        name='mintTime'
-        value={project.mintTime}
-        onChange={handleChange}
-      />
-      <input
-        type='text'
-        name='mintAvailableSpots'
-        value={project.mintAvailableSpots}
-        placeholder='Available Spots'
-        onChange={handleChange}
-      />
-      <input
-        type='text'
-        name='mintPrice'
-        value={project.mintPrice}
-        placeholder='Mint Price'
-        onChange={handleChange}
-      />
+        <input
+          type='text'
+          name='link'
+          value={project.link}
+          placeholder='Official link'
+          onChange={handleChange}
+        />
 
-      <button>Save</button>
-    </form>
+        <input
+          type='checkbox'
+          name='isPrivate'
+          value={project.isPrivate}
+          onChange={handleChange}
+        />
+
+        <input
+          type='datetime-local'
+          name='mintDate'
+          value={project.mintDate}
+          onChange={handleChange}
+        />
+        <input
+          type='time'
+          name='mintTime'
+          value={project.mintTime}
+          onChange={handleChange}
+        />
+        <input
+          type='text'
+          name='mintAvailableSpots'
+          value={project.mintAvailableSpots}
+          placeholder='Available Spots'
+          onChange={handleChange}
+        />
+        <input
+          type='text'
+          name='mintPrice'
+          value={project.mintPrice}
+          placeholder='Mint Price'
+          onChange={handleChange}
+        />
+
+        <button>Save</button>
+      </form>
+    </div>
   );
 };
 

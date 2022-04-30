@@ -20,6 +20,10 @@ export default function Navigation() {
                 <a>Create Project</a>
             </Link>
 
+            <Link href="/dashboard/1/settings">
+                <a>Project 1 settings</a>
+            </Link>
+
         </div>
     )
 }

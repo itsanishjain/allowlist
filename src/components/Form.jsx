@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { addDoc, collection } from "firebase/firestore";
+import { uploadFile } from '../utils/helpers'
 
 export default function Form() {
 
@@ -38,6 +40,26 @@ export default function Form() {
         console.log("Submitting......")
         console.log(formValues);
         // TODO: API to save data to firebase
+
+        const image1 = await uploadFile(
+            `projectsImage`,
+            imageSrc.projectImageFile
+        );
+
+        const image2 = await uploadFile(
+            `projectsImage`,
+            imageSrc.bannerImageFile
+        );
+
+        addDoc(collection(db, "projects"), {
+            ...formValues,
+            profileImage: image1,
+            bannerImage: image2,
+        })
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
+
+
     }
 
     return (

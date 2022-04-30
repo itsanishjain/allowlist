@@ -8,9 +8,6 @@ export default function Wallet() {
 
     const { account, activate, deactivate, active } = useWeb3React();
 
-
-
-
     const connectMetaMask = async () => {
         let isCancelled = false;
         await activate(connectors.injected, () => {

@@ -12,16 +12,13 @@ export default function Protected() {
     const router = useRouter();
 
     useEffect(() => {
-        const provider = window.localStorage.getItem("provider");
-        console.log({ provider })
-        if (provider) {
-            activate(connectors[provider])
-        }
-        else {
-            console.log("HERE YOU END")
+        const provider = localStorage.getItem("provider");
+        activate(connectors[provider], () => {
+            console.log("error")
             router.push("/")
-        }
-    }, [activate]);
+
+        })
+    }, [activate, router]);
 
 
     return (

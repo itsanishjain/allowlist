@@ -4,10 +4,6 @@ const Home = () => {
   return (
     <div>
       <p>Home Page</p>
-
-      <Link href='/login'>
-        <a>Login</a>
-      </Link>
     </div>
   );
 };
