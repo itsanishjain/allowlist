@@ -14,13 +14,13 @@ const Settings = ({ data }) => {
 export async function getServerSideProps(ctx) {
   let data = {};
 
-  await getDoc(doc(db, 'projects', ctx.params.id))
+  await getDoc(doc(db, "projects", ctx.params.id))
     .then((response) => {
-      data = { ...response.data(), id: response.id }
+      data = { ...response.data(), id: response.id };
     })
     .catch((error) => console.log(error));
 
-  return { props: { data } }
+  return { props: { data } };
 }
 
 export default Settings;

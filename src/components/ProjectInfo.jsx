@@ -1,31 +1,33 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { uploadFile } from "../utils/helpers";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, updateDoc, collection } from "firebase/firestore";
 import { db, storage } from "../utils/firebase";
-
 
 const ProjectInfo = ({ data }) => {
   const [project, setProject] = useState({
+    // ...data
     name: data.name,
     description: data.description,
-    profileImage: "",
-    bannerImage: "",
-    slug: "",
-    link: "",
-    isPrivate: true,
-    mintDate: "",
-    mintTime: "",
-    mintAvailableSpots: "",
-    mintPrice: "",
+    projectImage: data.projectImage,
+    bannerImage: data.bannerImage,
+    // slug: "",
+    // link: "",
+    // isPrivate: true,
+    // mintDate: "",
+    // mintTime: "",
+    // mintAvailableSpots: "",
+    // mintPrice: "",
   });
 
-  const [imageSrc, setImageSrc] = useState({
+  const [imageFiles, setImageFiles] = useState({
     projectImageFile: null,
-    projectImageSrc: "",
+    // projectImageSrc: "",
 
     bannerImageFile: null,
-    bannerImageSrc: "",
+    // bannerImageSrc: "",
+    projectFileChanged: false,
+    bannerFileChanged: false,
   });
 
   const handleChange = (e) => {
@@ -36,36 +38,46 @@ const ProjectInfo = ({ data }) => {
   };
 
   const handleImageChange = (e) => {
-    setImageSrc((prev) => ({
+    setImageFiles((prev) => ({
       ...prev,
       [e.target.name + "File"]: e.target.files[0],
-      [e.target.name + "Src"]: URL.createObjectURL(e.target.files[0]),
+      [e.target.name + "Changed"]: true,
+      // [e.target.name + "Src"]: URL.createObjectURL(e.target.files[0]),
+    }));
+
+    setProject((prev) => ({
+      ...prev,
+      [e.target.name]: URL.createObjectURL(e.target.files[0]),
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    const image1 = await uploadFile(
-      `projectsImage`,
-      imageSrc.projectImageFile
-    );
+    var imagesToUpload = {};
 
-    const image2 = await uploadFile(
-      `projectsImage`,
-      imageSrc.bannerImageFile
-    );
+    if (imageFiles.projectFileChanged) {
+      imagesToUpload["projectImage"] = await uploadFile(
+        `projectsImage`,
+        imageFiles.projectImageFile
+      );
+    }
 
-    addDoc(collection(db, "projects"), {
+    if (imageFiles.bannerFileChanged) {
+      imagesToUpload["bannerImage"] = await uploadFile(
+        `projectsImage`,
+        imageFiles.bannerImageFile
+      );
+    }
+
+    updateDoc(collection(db, "projects"), {
       ...project,
-      profileImage: image1,
-      bannerImage: image2,
+      // profileImage: image1,
+      // bannerImage: image2,
+      ...imagesToUpload,
     })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
-
-
 
   return (
     <div>
@@ -98,9 +110,9 @@ const ProjectInfo = ({ data }) => {
           name='projectImage'
           onChange={handleImageChange}
         />
-        {imageSrc.projectImageSrc && (
+        {project.projectImage && (
           <Image
-            src={imageSrc.projectImageSrc}
+            src={project.projectImage}
             alt='Project image'
             width={200}
             height={200}
@@ -113,9 +125,9 @@ const ProjectInfo = ({ data }) => {
           name='bannerImage'
           onChange={handleImageChange}
         />
-        {imageSrc.bannerImageSrc && (
+        {project.bannerImage && (
           <Image
-            src={imageSrc.bannerImageSrc}
+            src={project.bannerImage}
             alt='Banner image'
             width={200}
             height={200}
