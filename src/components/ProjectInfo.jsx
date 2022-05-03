@@ -1,36 +1,39 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { uploadFile } from "../utils/helpers";
-import { addDoc, updateDoc, collection } from "firebase/firestore";
+import { addDoc, updateDoc, collection, doc } from "firebase/firestore";
 import { db, storage } from "../utils/firebase";
 
 const ProjectInfo = ({ data }) => {
+
+
+  const [loading, setLoading] = useState(false);
+  const [isProjectInfoUpdated, setIsProjectInfoUpdated] = useState(false);
+
   const [project, setProject] = useState({
-    // ...data
-    name: data.name,
-    description: data.description,
-    projectImage: data.projectImage,
-    bannerImage: data.bannerImage,
-    // slug: "",
-    // link: "",
-    // isPrivate: true,
-    // mintDate: "",
-    // mintTime: "",
-    // mintAvailableSpots: "",
-    // mintPrice: "",
+    // name: data.name,
+    // description: data.description,
+    // profileImage: data.profileImage,
+    // bannerImage: data.bannerImage,
+    // link: data.link,
+    // isPrivate: data.isPrivate,
+    // mintDate: data.mintDate,
+    // mintTime: data.mintTime,
+    // mintAvailableSpots: data.mintAvailableSpots,
+    // mintPrice: data.mintPrice,
+    ...data
   });
 
   const [imageFiles, setImageFiles] = useState({
-    projectImageFile: null,
-    // projectImageSrc: "",
-
+    profileImageFile: null,
     bannerImageFile: null,
-    // bannerImageSrc: "",
+
     projectFileChanged: false,
     bannerFileChanged: false,
   });
 
   const handleChange = (e) => {
+    setIsProjectInfoUpdated(true)
     setProject((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -38,6 +41,7 @@ const ProjectInfo = ({ data }) => {
   };
 
   const handleImageChange = (e) => {
+    setIsProjectInfoUpdated(true)
     setImageFiles((prev) => ({
       ...prev,
       [e.target.name + "File"]: e.target.files[0],
@@ -53,12 +57,17 @@ const ProjectInfo = ({ data }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!isProjectInfoUpdated) return;
+    setLoading(true);
     var imagesToUpload = {};
 
+
+
     if (imageFiles.projectFileChanged) {
-      imagesToUpload["projectImage"] = await uploadFile(
+      imagesToUpload["profileImage"] = await uploadFile(
         `projectsImage`,
-        imageFiles.projectImageFile
+        imageFiles.profileImageFile
       );
     }
 
@@ -69,14 +78,19 @@ const ProjectInfo = ({ data }) => {
       );
     }
 
-    updateDoc(collection(db, "projects"), {
+    await updateDoc(doc(db, "projects", data.id), {
       ...project,
       // profileImage: image1,
       // bannerImage: image2,
+
       ...imagesToUpload,
     })
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res)
+
+      })
       .catch((err) => console.log(err));
+    setLoading(false)
   };
 
   return (
@@ -96,23 +110,16 @@ const ProjectInfo = ({ data }) => {
           placeholder='Project description'
           onChange={handleChange}
         />
-        <input
-          type='text'
-          name='slug'
-          value={project.slug}
-          placeholder='Slug'
-          onChange={handleChange}
-        />
 
         <input
           type='file'
           accept='image/*'
-          name='projectImage'
+          name='profileImage'
           onChange={handleImageChange}
         />
-        {project.projectImage && (
+        {project.profileImage && (
           <Image
-            src={project.projectImage}
+            src={project.profileImage}
             alt='Project image'
             width={200}
             height={200}
@@ -150,7 +157,7 @@ const ProjectInfo = ({ data }) => {
         />
 
         <input
-          type='datetime-local'
+          type='date'
           name='mintDate'
           value={project.mintDate}
           onChange={handleChange}
@@ -176,7 +183,9 @@ const ProjectInfo = ({ data }) => {
           onChange={handleChange}
         />
 
-        <button>Save</button>
+        {
+          !loading ? <button>Save</button> : "Updating..........."
+        }
       </form>
     </div>
   );

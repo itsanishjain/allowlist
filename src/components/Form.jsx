@@ -1,15 +1,40 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { addDoc, collection } from "firebase/firestore";
 import { db, storage } from "../utils/firebase";
 import { uploadFile } from '../utils/helpers'
 import { useRouter } from 'next/router';
 
+
+import { useWeb3React } from "@web3-react/core";
+import { connectors } from '../utils/connectors';
+
 export default function Form() {
 
     const router = useRouter();
+    const { account, activate } = useWeb3React();
+
+    const [loading,setLoading] = useState(false);
+
+    useEffect(() => {
+        const provider = localStorage.getItem("provider");
+        activate(connectors[provider], () => {
+            console.log("error")
+            router.push("/")
+
+        })
+    }, [activate, router]);
+
+
+    console.log({ account })
 
     const [formValues, setFormValues] = useState({
-        name: "", description: "", profileImage: "", bannerImage: ""
+        name: "", description: "", profileImage: "", bannerImage: "",
+        link: "",
+        isPrivate: "",
+        mintDate: "",
+        mintTime: "",
+        mintAvailableSpots: "",
+        mintPrice: "",
     });
 
     const [imageSrc, setImageSrc] = useState({
@@ -40,6 +65,7 @@ export default function Form() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("Submitting......")
+        setLoading(true)
         console.log(formValues);
         // TODO: API to save data to firebase
 
@@ -56,6 +82,7 @@ export default function Form() {
         try {
             const response = await addDoc(collection(db, "projects"), {
                 ...formValues,
+                user: account,
                 profileImage: image1,
                 bannerImage: image2,
             })
@@ -66,6 +93,7 @@ export default function Form() {
         catch (error) {
             console.log("ERROR in submitting form", error)
         }
+        setLoading(false)
     }
 
     return (
@@ -83,7 +111,9 @@ export default function Form() {
                 <input name="bannerImage" onChange={onImageChange} accept='image/*' type="file" />
                 <img src={imageSrc.bannerImage}></img>
 
-                <button>Create</button>
+                {
+                    !loading ? <button>Create</button> : "Ceating......"
+                }
             </form>
         </div>
     )
