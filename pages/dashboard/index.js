@@ -24,22 +24,22 @@ export default function Dashboard() {
 
 
 
-        //     console.log("######################", account)
+    //     console.log("######################", account)
 
-        //     if (account) {
-        //         console.log(account, typeof account, ">>>>>>>>>>>>>>>>>")
-        //         const projectsRef = collection(db, "projects");
+    //     if (account) {
+    //         console.log(account, typeof account, ">>>>>>>>>>>>>>>>>")
+    //         const projectsRef = collection(db, "projects");
 
-        //         const q = query(projectsRef, where("user", "==", account));
+    //         const q = query(projectsRef, where("user", "==", account));
 
-        //         getDocs(q)
-        //             .then(snapshot => snapshot.forEach(doc => {
-        //                 console.log({ id: doc.id, ...doc.data() })
-        //                 let d = { id: doc.id, ...doc.data() }
-        //                 setData(d)
-        //             }))
-        //             .catch(err => console.log(err));
-        //     }
+    //         getDocs(q)
+    //             .then(snapshot => snapshot.forEach(doc => {
+    //                 console.log({ id: doc.id, ...doc.data() })
+    //                 let d = { id: doc.id, ...doc.data() }
+    //                 setData(d)
+    //             }))
+    //             .catch(err => console.log(err));
+    //     }
 
 
     // }, []);

@@ -5,7 +5,7 @@ export default function Navigation() {
     return (
         <div className='space-x-4'>
             <Link href="/">
-                <a>Home</a>
+                <a>name not decied yet</a>
             </Link>
 
             <Link href="/login">
