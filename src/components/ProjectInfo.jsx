@@ -95,6 +95,8 @@ const ProjectInfo = ({ data }) => {
 
   return (
     <div>
+
+      <p><a href={`/users/${data.id}`} >public url: </a></p>
       <form onSubmit={handleSubmit}>
         <input
           type='text'

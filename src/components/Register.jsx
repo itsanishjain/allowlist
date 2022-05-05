@@ -26,7 +26,7 @@ export default function UserRegister({ data }) {
     useEffect(() => {
         const provider = window.localStorage.getItem("provider");
         if (provider) activate(connectors[provider]);
-    }, [activate]);
+    }, [activate, router]);
 
 
     console.log(router.query.id, "DFSDFDFDSFSDF")
@@ -42,11 +42,7 @@ export default function UserRegister({ data }) {
             "projectId", "==", router.query.id
         ));
 
-        // const q2 = query(projectsRef, where(
-
-        //     "projectId", "==", router.query.id
-        // ));
-
+    
         getDocs(q)
             .then((snapshot) => {
                 snapshot.forEach((doc) => {
@@ -61,7 +57,7 @@ export default function UserRegister({ data }) {
                 //     console.log({ id: doc.id, ...doc.data() })
                 // })
 
-                
+
 
             })
             .catch(err => console.log(err));
