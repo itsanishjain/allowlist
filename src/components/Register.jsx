@@ -9,6 +9,10 @@ import { db, storage } from "../utils/firebase";
 import { useRouter } from 'next/router';
 import { async } from '@firebase/util';
 
+import { Contract, providers, utils } from "ethers";
+
+import { abi } from '../smartContract';
+
 
 
 
@@ -21,7 +25,37 @@ export default function UserRegister({ data }) {
     const [isShowRegistered, setIsShowRegintered] = useState(false);
 
     const router = useRouter()
-    const { account, activate, deactivate, active } = useWeb3React();
+    const { account, activate, deactivate, active, library, chainId } = useWeb3React();
+
+    // const [isOwnNFT,setIsOwnNFT] = useState(data.contractAddress?  )
+
+
+    const checkBalanceOf = async () => {
+
+        if (chainId == 4 && library.connection.url != 'metamask') {
+            library.provider.http.connection.url = `https://rinkeby.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`
+        }
+
+
+        const provider = await library.provider;
+        const web3Provider = new providers.Web3Provider(provider);
+
+        const contract = new Contract(data.contractAddress, abi, web3Provider.getSigner());
+        const response = await contract.balanceOf(account);
+
+        if (parseInt(response)) {
+            console.log("Fuck Yeh You own this NFT", parseInt(response))
+        }
+        else {
+            console.log("Get the fuck of ", parseInt(response))
+        }
+
+
+    };
+
+
+
+
 
     useEffect(() => {
         const provider = window.localStorage.getItem("provider");
@@ -29,12 +63,24 @@ export default function UserRegister({ data }) {
     }, [activate, router]);
 
 
+
+
+
+
     if (account) {
+
+        if (data.contractAddress) {
+            checkBalanceOf()
+        }
+        else {
+            console.log("Project is not checking for any NFT")
+        }
+
         console.log("LOGGED IN")
         const projectsRef = collection(db, "users");
         const q = query(projectsRef, where("user", "==", account,), where("projectId", "==", router.query.id));
 
-    
+
         getDocs(q)
             .then((snapshot) => {
                 snapshot.forEach((doc) => {
