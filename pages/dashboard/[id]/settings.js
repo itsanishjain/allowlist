@@ -1,12 +1,16 @@
 import { getDoc, doc } from "firebase/firestore";
 
 import ProjectInfo from "../../../src/components/ProjectInfo";
+import WalletRequirement from "../../../src/components/WalletRequirement";
 import { db } from "../../../src/utils/firebase";
 
 const Settings = ({ data }) => {
   return (
     <div className='my-20'>
       <ProjectInfo data={data} />
+      {/* Add wallet requiremnts component */}
+      <hr />
+      <WalletRequirement data={data} />
     </div>
   );
 };

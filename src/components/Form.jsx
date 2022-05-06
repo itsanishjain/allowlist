@@ -13,7 +13,7 @@ export default function Form() {
     const router = useRouter();
     const { account, activate } = useWeb3React();
 
-    const [loading,setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const provider = localStorage.getItem("provider");
@@ -28,7 +28,10 @@ export default function Form() {
     console.log({ account })
 
     const [formValues, setFormValues] = useState({
-        name: "", description: "", profileImage: "", bannerImage: "",
+        name: "",
+        description: "",
+        profileImage: "",
+        bannerImage: "",
         link: "",
         isPrivate: "",
         mintDate: "",

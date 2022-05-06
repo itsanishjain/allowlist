@@ -24,6 +24,9 @@ export default function Navigation() {
                 <a>Dashboard</a>
             </Link>
 
+            <Link href="/users/2S5k5ROPPfzagQ7NnBuk">Public link</Link>
+            <Link href="/dashboard/2S5k5ROPPfzagQ7NnBuk/settings">Update project</Link>
+
 
 
         </div>

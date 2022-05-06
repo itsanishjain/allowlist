@@ -29,18 +29,10 @@ export default function UserRegister({ data }) {
     }, [activate, router]);
 
 
-    console.log(router.query.id, "DFSDFDFDSFSDF")
-
     if (account) {
         console.log("LOGGED IN")
         const projectsRef = collection(db, "users");
-        const q = query(projectsRef, where(
-            "user", "==", account,
-
-        ), where(
-
-            "projectId", "==", router.query.id
-        ));
+        const q = query(projectsRef, where("user", "==", account,), where("projectId", "==", router.query.id));
 
     
         getDocs(q)
@@ -69,6 +61,12 @@ export default function UserRegister({ data }) {
     const handleSubmit = async () => {
         setLoading(true);
         try {
+
+            /*
+            
+            TODO: If project have rquirement to check eth balance and own collection then we need check  and call smart contract 
+            
+            */
             const response = await addDoc(collection(db, `users`), {
                 projectId: router.query.id,
                 user: account,
