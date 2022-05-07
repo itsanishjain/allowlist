@@ -9,7 +9,7 @@ import { db, storage } from "../utils/firebase";
 import { useRouter } from 'next/router';
 import { async } from '@firebase/util';
 
-import { Contract, providers, utils } from "ethers";
+import { Contract, providers, utils, getDefaultProvider, ethers } from "ethers";
 
 import { abi } from '../smartContract';
 
@@ -30,6 +30,50 @@ export default function UserRegister({ data }) {
     // const [isOwnNFT,setIsOwnNFT] = useState(data.contractAddress?  )
 
 
+    const checkWalletBalance = async () => {
+        // https://docs.ethers.io/v4/cookbook-accounts.html
+
+
+        console.log(
+            { library }
+        )
+
+        console.log(library.network)
+
+        if (chainId == 4 && library.connection.url != 'metamask') {
+            library.provider.http.connection.url = `https://rinkeby.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`
+        }
+
+
+
+
+
+        const provider = await library.provider;
+        const web3Provider = new providers.Web3Provider(provider);
+
+        let balance = await web3Provider.getBalance(account);
+        // let balance = await provider.getBalance(account);
+        console.log("$$$$$$$$$$$$$$$$$$$$$$$$$", balance)
+
+        console.log("FLOAT", parseFloat(data.ethAmount))
+
+        console.log("FLOAT333333333333333", parseFloat(utils.formatEther(balance)))
+
+
+        if (parseFloat(data.ethAmount) <= parseFloat(utils.formatEther(balance))) {
+            console.log("Hell Yeh you can Register for premint you are a rich guy")
+        }
+        else {
+            console.log("BRO get Lost")
+        }
+
+        console.log(account + ':' + utils.formatEther(balance));
+
+
+
+    }
+
+
     const checkBalanceOf = async () => {
 
         if (chainId == 4 && library.connection.url != 'metamask') {
@@ -40,7 +84,16 @@ export default function UserRegister({ data }) {
         const provider = await library.provider;
         const web3Provider = new providers.Web3Provider(provider);
 
+
+
+
         const contract = new Contract(data.contractAddress, abi, web3Provider.getSigner());
+
+
+        console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRrr", await web3Provider.getCode(data.contractAddress))
+
+
+
         const response = await contract.balanceOf(account);
 
         if (parseInt(response)) {
@@ -54,9 +107,6 @@ export default function UserRegister({ data }) {
     };
 
 
-
-
-
     useEffect(() => {
         const provider = window.localStorage.getItem("provider");
         if (provider) activate(connectors[provider]);
@@ -68,6 +118,14 @@ export default function UserRegister({ data }) {
 
 
     if (account) {
+
+        if (data.ethAmount) {
+            checkWalletBalance()
+        }
+
+        else {
+            console.log("Project is not checking for ETH balance")
+        }
 
         if (data.contractAddress) {
             checkBalanceOf()
