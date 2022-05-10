@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Dashboard({ data }) {
 
-    console.log("DDDDDDDDDDDDDDDDDDDddd",data)
+    console.log("DDDDDDDDDDDDDDDDDDDddd", data)
 
     return (
         <div>
@@ -11,13 +11,13 @@ export default function Dashboard({ data }) {
                 {
                     data && (
                         <>
-                            {data.name}
+                            <p>{data.name}</p>
                             {data.description}
                         </>
                     )
                 }
             </div>
-
+            <hr />
         </div>
     )
 }

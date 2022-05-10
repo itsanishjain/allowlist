@@ -9,7 +9,7 @@ import { db, storage } from "../utils/firebase";
 import { useRouter } from 'next/router';
 import { async } from '@firebase/util';
 
-import { Contract, providers, utils, getDefaultProvider, ethers } from "ethers";
+import { Contract, providers, utils } from "ethers";
 
 import { abi } from '../smartContract';
 
@@ -43,9 +43,6 @@ export default function UserRegister({ data }) {
         if (chainId == 4 && library.connection.url != 'metamask') {
             library.provider.http.connection.url = `https://rinkeby.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`
         }
-
-
-
 
 
         const provider = await library.provider;
@@ -89,8 +86,12 @@ export default function UserRegister({ data }) {
 
         const contract = new Contract(data.contractAddress, abi, web3Provider.getSigner());
 
+        const isContractExist = await web3Provider.getCode(data.contractAddress);
 
-        console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRrr", await web3Provider.getCode(data.contractAddress))
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!1",isContractExist)
+
+        if (isContractExist == '0x') return
+
 
 
 

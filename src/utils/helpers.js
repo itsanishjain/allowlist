@@ -22,3 +22,22 @@ export const uploadFile = async (path, file) => {
     await uploadBytes(storageRef, file);
     return await getDownloadURL(storageRef);
 };
+
+
+import { providers } from "ethers";
+
+const isContractExistOnChain = async (contractAddress) => {
+    // library comeing from web3-react
+    const provider = await library.provider;
+    const web3Provider = new providers.Web3Provider(provider);
+    const code = await web3Provider.getCode(contractAddress)
+    if (code == '0x') return false;
+    else return true;
+}
+
+const checkWalletBalance = async () => {
+    const provider = await library.provider;
+    const web3Provider = new providers.Web3Provider(provider);
+    let balance = await web3Provider.getBalance(account);
+    return balance;
+}
