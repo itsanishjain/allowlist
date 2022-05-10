@@ -1,28 +1,15 @@
 import React, { useState } from "react";
 import Image from "next/image";
+import { updateDoc, doc } from "firebase/firestore";
+
+import { db } from "../utils/firebase";
 import { uploadFile } from "../utils/helpers";
-import { addDoc, updateDoc, collection, doc } from "firebase/firestore";
-import { db, storage } from "../utils/firebase";
 
 const ProjectInfo = ({ data }) => {
-
-
   const [loading, setLoading] = useState(false);
   const [isProjectInfoUpdated, setIsProjectInfoUpdated] = useState(false);
 
-  const [project, setProject] = useState({
-    // name: data.name,
-    // description: data.description,
-    // profileImage: data.profileImage,
-    // bannerImage: data.bannerImage,
-    // link: data.link,
-    // isPrivate: data.isPrivate,
-    // mintDate: data.mintDate,
-    // mintTime: data.mintTime,
-    // mintAvailableSpots: data.mintAvailableSpots,
-    // mintPrice: data.mintPrice,
-    ...data
-  });
+  const [project, setProject] = useState(data);
 
   const [imageFiles, setImageFiles] = useState({
     profileImageFile: null,
@@ -33,7 +20,7 @@ const ProjectInfo = ({ data }) => {
   });
 
   const handleChange = (e) => {
-    setIsProjectInfoUpdated(true)
+    setIsProjectInfoUpdated(true);
     setProject((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -41,12 +28,11 @@ const ProjectInfo = ({ data }) => {
   };
 
   const handleImageChange = (e) => {
-    setIsProjectInfoUpdated(true)
+    setIsProjectInfoUpdated(true);
     setImageFiles((prev) => ({
       ...prev,
       [e.target.name + "File"]: e.target.files[0],
       [e.target.name + "Changed"]: true,
-      // [e.target.name + "Src"]: URL.createObjectURL(e.target.files[0]),
     }));
 
     setProject((prev) => ({
@@ -59,10 +45,10 @@ const ProjectInfo = ({ data }) => {
     e.preventDefault();
 
     if (!isProjectInfoUpdated) return;
+
     setLoading(true);
-    var imagesToUpload = {};
 
-
+    let imagesToUpload = {};
 
     if (imageFiles.projectFileChanged) {
       imagesToUpload["profileImage"] = await uploadFile(
@@ -80,23 +66,19 @@ const ProjectInfo = ({ data }) => {
 
     await updateDoc(doc(db, "projects", data.id), {
       ...project,
-      // profileImage: image1,
-      // bannerImage: image2,
-
       ...imagesToUpload,
     })
-      .then((res) => {
-        console.log(res)
-
-      })
+      .then((res) => console.log(res))
       .catch((err) => console.log(err));
-    setLoading(false)
+
+    setLoading(false);
   };
 
   return (
     <div>
-
-      <p><a href={`/users/${data.id}`} >public url: </a></p>
+      <p>
+        <a href={`/users/${data.id}`}>public url: </a>
+      </p>
       <form onSubmit={handleSubmit}>
         <input
           type='text'
@@ -185,9 +167,7 @@ const ProjectInfo = ({ data }) => {
           onChange={handleChange}
         />
 
-        {
-          !loading ? <button>Save</button> : "Updating..........."
-        }
+        {!loading ? <button>Save</button> : "Updating..........."}
       </form>
     </div>
   );

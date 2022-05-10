@@ -1,59 +1,75 @@
-import { useState } from 'react'
-import { addDoc, updateDoc, collection, doc } from "firebase/firestore";
-import { db } from '../utils/firebase';
+import { useState } from "react";
+import { updateDoc, doc } from "firebase/firestore";
 
-export default function WalletRequirement({ data }) {
-    console.log("Data inside wallet requirement page", data)
-    const [formValues, setFormValues] = useState({
-        ethAmount: data.ethAmount ? data.ethAmount : "",
-        contractAddress: data.contractAddress ? data.contractAddress : "",
-        contractName: data.contractName ? data.contractName : "",
-        marketPlaceUrl: data.marketPlaceUrl ? data.marketPlaceUrl : ""
-    });
+import { db } from "../utils/firebase";
 
-    const handleChange = (e) => {
-        setFormValues((prevValues) => (
-            { ...prevValues, [e.target.name]: e.target.value }
-        ))
-    }
+const WalletRequirement = ({ data }) => {
+  console.log("Data inside wallet requirement page", data);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        console.log("adding wallet requiremtnts");
-        try {
-            const response = await updateDoc(doc(db, "projects", data.id), { ...formValues })
-            console.log(response, "RESPONSE")
-            window.alert("Success")
-        }
-        catch (error) {
-            console.log("ERROR", error)
-            window.alert("ERRRO")
-        }
+  const [formValues, setFormValues] = useState({
+    ethAmount: data.ethAmount ? data.ethAmount : "",
+    contractAddress: data.contractAddress ? data.contractAddress : "",
+    contractName: data.contractName ? data.contractName : "",
+    marketPlaceUrl: data.marketPlaceUrl ? data.marketPlaceUrl : "",
+  });
 
-    }
+  const handleChange = (e) => {
+    setFormValues((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
 
-    return (
-        <div>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("adding wallet requirements");
 
-            <p>WalletRequirement</p>
+    await updateDoc(doc(db, "projects", data.id), formValues)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
-            <form onSubmit={handleSubmit}>
-                <input onChange={handleChange} value={formValues.ethAmount} type="text" placeholder="ETH required" name="ethAmount" /> 
-                <br />
-                <input onChange={handleChange} value={formValues.contractAddress} type="text" placeholder='contract address' name="contractAddress" />
-                <br />
-                <input onChange={handleChange} value={formValues.contractName} type="text" placeholder='contract Name' name='contractName' />
-                <br />
-                <input onChange={handleChange} value={formValues.marketPlaceUrl} type="text" placeholder='contract Open sea url' name="marketPlaceUrl" />
+  return (
+    <div>
+      <p>WalletRequirement</p>
 
-                <button>save Settings</button>
-            </form>
+      <form onSubmit={handleSubmit}>
+        <input
+          onChange={handleChange}
+          value={formValues.ethAmount}
+          type='text'
+          placeholder='ETH required'
+          name='ethAmount'
+        />
+        <br />
+        <input
+          onChange={handleChange}
+          value={formValues.contractAddress}
+          type='text'
+          placeholder='contract address'
+          name='contractAddress'
+        />
+        <br />
+        <input
+          onChange={handleChange}
+          value={formValues.contractName}
+          type='text'
+          placeholder='contract Name'
+          name='contractName'
+        />
+        <br />
+        <input
+          onChange={handleChange}
+          value={formValues.marketPlaceUrl}
+          type='text'
+          placeholder='contract Open sea url'
+          name='marketPlaceUrl'
+        />
 
+        <button>save Settings</button>
+      </form>
+    </div>
+  );
+};
 
-
-
-
-
-        </div>
-    )
-}
+export default WalletRequirement;

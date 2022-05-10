@@ -1,23 +1,18 @@
-import React from 'react'
+import React from "react";
 
-export default function Dashboard({ data }) {
+const Dashboard = ({ data }) => {
+  console.log("Dashboard data: ", data);
 
-    console.log("DDDDDDDDDDDDDDDDDDDddd", data)
+  return (
+    <div>
+      <p>YOur projects</p>
+      <div>
+        <p>{data.name}</p>
+        <p> {data.description}</p>
+      </div>
+      <hr />
+    </div>
+  );
+};
 
-    return (
-        <div>
-            <p>YOur projects</p>
-            <div>
-                {
-                    data && (
-                        <>
-                            <p>{data.name}</p>
-                            {data.description}
-                        </>
-                    )
-                }
-            </div>
-            <hr />
-        </div>
-    )
-}
+export default Dashboard;

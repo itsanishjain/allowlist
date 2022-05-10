@@ -2,9 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-
-button{
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 10px;
+button {
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
 }

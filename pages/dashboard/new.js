@@ -1,11 +1,10 @@
-import Form from '../../src/components/Form';
+import Form from "../../src/components/Form";
 
-export default function NewProject() {
-    return (
-        <div>
-            Create NewProject
-            <Form />
+const NewProject = () => (
+  <div>
+    Create NewProject
+    <Form />
+  </div>
+);
 
-        </div>
-    )
-}
+export default NewProject;
