@@ -6,6 +6,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { db } from "../utils/firebase";
 import { uploadFile } from "../utils/helpers";
 import { connectors } from "../utils/connectors";
+import Input from "./Input";
 
 const Form = () => {
   const { account, activate } = useWeb3React();
@@ -82,45 +83,53 @@ const Form = () => {
   }, [activate, router]);
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          name='name'
-          onChange={handleChange}
-          value={formValues.name}
-          type='text'
-          placeholder='Project Name'
-        />
-        <textarea
-          name='description'
-          onChange={handleChange}
-          value={formValues.description}
-          type='text'
-          placeholder='Description'
-        />
 
-        <p>Profile Image</p>
-        <input
-          name='profileImage'
-          onChange={onImageChange}
-          accept='image/*'
-          type='file'
-        />
+    <form className="flex flex-col max-w-xl mx-auto mt-4 space-y-4 p-2" onSubmit={handleSubmit}>
+      {/* <input
+        name='name'
+        onChange={handleChange}
+        value={formValues.name}
+        type='text'
+        placeholder='Project Name'
+      /> */}
 
-        <img src={imageSrc.profileImage} />
+      <Input inputTagType="smallInput" placeholder="Name of your project" />
 
-        <p>Banner Image</p>
-        <input
-          name='bannerImage'
-          onChange={onImageChange}
-          accept='image/*'
-          type='file'
-        />
-        <img src={imageSrc.bannerImage} />
 
-        {!loading ? <button>Create</button> : "Creating......"}
-      </form>
-    </div>
+      {/* <textarea
+        name='description'
+        onChange={handleChange}
+        value={formValues.description}
+        type='text'
+        placeholder='Description'
+      /> */}
+
+      <Input inputTagType="largeInput" placeholder="Description" />
+
+
+
+
+      <p>Profile Image</p>
+      <input
+        name='profileImage'
+        onChange={onImageChange}
+        accept='image/*'
+        type='file'
+      />
+
+      <img src={imageSrc.profileImage} />
+
+      <p>Banner Image</p>
+      <input
+        name='bannerImage'
+        onChange={onImageChange}
+        accept='image/*'
+        type='file'
+      />
+      <img src={imageSrc.bannerImage} />
+
+      {!loading ? <button>Create</button> : "Creating......"}
+    </form>
   );
 };
 
