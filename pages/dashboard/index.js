@@ -6,6 +6,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../src/utils/firebase";
 import { connectors } from "../../src/utils/connectors";
 import Dashboard from "../../src/components/Dashboard";
+import Loader from "../../src/components/Loader";
 
 const DashboardPage = () => {
   const { account, activate } = useWeb3React();
@@ -34,12 +35,14 @@ const DashboardPage = () => {
       .catch((err) => console.log(err));
   }, [account]);
 
+  if (data.length === 0) return <Loader />
+
   return (
     <div>
-      Dashboard -
-      {data.length != 0
-        ? data.map((d, index) => <Dashboard key={index} data={d} />)
-        : "NO DATA"}
+      <p className="text-center text-xl mt-4">Dashboard</p>
+      {
+        data.map((d, index) => <Dashboard key={index} data={d} />)
+      }
     </div>
   );
 };
