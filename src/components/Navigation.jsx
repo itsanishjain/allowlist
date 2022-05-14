@@ -26,6 +26,7 @@ const Navigation = () => {
 
   const navigation = [
     { title: "Protected", path: "/protected" },
+    { title: "Protected", path: "/protected" },
     { title: "Dashboard", path: "/dashboard" },
     { title: "Create project", path: "/dashboard/new" },
   ]

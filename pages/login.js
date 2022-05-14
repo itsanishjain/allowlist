@@ -2,7 +2,7 @@ import Wallet from "../src/components/Wallet";
 
 const Login = () => (
   <div>
-    Login Page
+    <p className="text-xl text-center mt-8"> Login Page</p>
     <Wallet />
   </div>
 );

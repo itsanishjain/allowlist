@@ -10,14 +10,14 @@ const Wallet = () => {
   const connectMetaMask = async () => {
     let isCancelled = false;
     await activate(connectors.injected, () => {
-      alert("Connection Rejected");
+      // alert("Connection Rejected");
       isCancelled = true;
     });
 
     if (isCancelled) return;
 
     setProvider("injected");
-    alert("Connected Successfully");
+    // alert("Connected Successfully");
   };
 
   const connectWalletConnect = async () => {
@@ -48,18 +48,15 @@ const Wallet = () => {
   }, [activate]);
 
   return (
-    <div className='space-y-10'>
-      Wallet
-      <br />
+    <div className='space-y-10 max-w-lg mx-auto  shadow-md rounded-md p-8 '>
+      {/* Wallet */}
       {!account ? (
-        <>
+        <div className="flex flex-col space-y-4">
           <button onClick={connectMetaMask}>MetaMask</button>
-          <br />
           <button onClick={connectWalletConnect}>WalletConnect</button>
-        </>
+        </div>
       ) : (
         <>
-          {active ? "YES" : "NOooooooo"}
           <p>{truncateAddress(account)}</p>
           <button onClick={disconnect}>Diconnect</button>
         </>
