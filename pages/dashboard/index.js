@@ -12,6 +12,7 @@ const DashboardPage = () => {
   const { account, activate } = useWeb3React();
 
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const router = useRouter();
 
@@ -31,18 +32,19 @@ const DashboardPage = () => {
     getDocs(q)
       .then((snapshot) => {
         setData(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+        setIsLoading(false);
       })
       .catch((err) => console.log(err));
   }, [account]);
 
-  if (data.length === 0) return <Loader />
+  if (isLoading && data.length === 0) return <Loader />;
 
   return (
     <div>
-      <p className="text-center text-xl mt-4">Dashboard</p>
-      {
-        data.map((d, index) => <Dashboard key={index} data={d} />)
-      }
+      <p className='text-center text-xl mt-4'>Dashboard</p>
+      {data.map((d, index) => (
+        <Dashboard key={index} data={d} />
+      ))}
     </div>
   );
 };
