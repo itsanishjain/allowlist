@@ -39,7 +39,9 @@ const Navigation = () => {
       <div className='items-center px-4 max-w-screen-xl mx-auto lg:flex lg:px-8'>
         <div className='flex items-center justify-between py-3 lg:py-4 lg:block'>
           <Link href='/'>
-            <a className='text-xl'>Home</a>
+            <a className='mx-auto text-xl font-black leading-none text-gray-900 select-none'>
+              Home<span className='text-purple-500'>.</span>
+            </a>
           </Link>
           <div className='lg:hidden'>
             <button
@@ -85,7 +87,7 @@ const Navigation = () => {
                 <li className='mt-8 lg:mt-0 mb-8 lg:mb-0'>
                   <Link href='/login'>
                     <a
-                      className='py-3 px-4 text-center text-white bg-indigo-600 hover:bg-indigo-700 rounded-md shadow block lg:inline'
+                      className='py-3 px-4 text-center text-white bg-purple-500 hover:bg-purple-700 rounded-md shadow block lg:inline'
                       onClick={handleToggle}>
                       Login
                     </a>
@@ -96,15 +98,13 @@ const Navigation = () => {
           )}
           <div className='flex-1'>
             <ul className='justify-center items-center space-y-8 lg:flex lg:space-x-6 lg:space-y-0'>
-              {navigation.map((item, idx) => {
-                return (
-                  <li key={idx} className='text-gray-600 hover:text-indigo-600'>
-                    <Link href={item.path}>
-                      <a onClick={handleToggle}>{item.title}</a>
-                    </Link>
-                  </li>
-                );
-              })}
+              {navigation.map((item, idx) => (
+                <li key={idx} className='text-gray-600 hover:text-indigo-600'>
+                  <Link href={item.path}>
+                    <a onClick={handleToggle}>{item.title}</a>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
