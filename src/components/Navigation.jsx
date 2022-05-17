@@ -1,10 +1,14 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import Link from "next/link";
+
+import { UserContext } from "../context/UserContext";
 
 const Navigation = () => {
   const [toggle, setToggle] = useState(false);
 
   const navRef = useRef();
+
+  const { isLoggedIn } = useContext(UserContext);
 
   const navigation = [
     { title: "Protected", path: "/protected" },
@@ -76,19 +80,21 @@ const Navigation = () => {
           className={`flex-1 justify-between flex-row-reverse lg:overflow-visible lg:flex lg:pb-0 lg:pr-0 lg:h-auto ${
             toggle ? "h-screen pb-20 overflow-auto pr-4" : "hidden"
           }`}>
-          <div>
-            <ul className='flex flex-col-reverse space-x-0 lg:space-x-6 lg:flex-row'>
-              <li className='mt-8 lg:mt-0 mb-8 lg:mb-0'>
-                <Link href='/login'>
-                  <a
-                    className='py-3 px-4 text-center text-white bg-indigo-600 hover:bg-indigo-700 rounded-md shadow block lg:inline'
-                    onClick={handleToggle}>
-                    Login
-                  </a>
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {!isLoggedIn && (
+            <div>
+              <ul className='flex flex-col-reverse space-x-0 lg:space-x-6 lg:flex-row'>
+                <li className='mt-8 lg:mt-0 mb-8 lg:mb-0'>
+                  <Link href='/login'>
+                    <a
+                      className='py-3 px-4 text-center text-white bg-indigo-600 hover:bg-indigo-700 rounded-md shadow block lg:inline'
+                      onClick={handleToggle}>
+                      Login
+                    </a>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          )}
           <div className='flex-1'>
             <ul className='justify-center items-center space-y-8 lg:flex lg:space-x-6 lg:space-y-0'>
               {navigation.map((item, idx) => {
