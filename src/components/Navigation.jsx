@@ -11,7 +11,6 @@ const Navigation = () => {
   const { isLoggedIn } = useContext(UserContext);
 
   const navigation = [
-    { title: "Protected", path: "/protected" },
     { title: "Dashboard", path: "/dashboard" },
     { title: "Create project", path: "/dashboard/new" },
   ];
