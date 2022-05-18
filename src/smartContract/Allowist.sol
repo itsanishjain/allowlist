@@ -1,21 +1,25 @@
+// SPDX-License-Identifier: GPL-3.0
+
+// IPFS:  ipfs://QmYqt8FCxQzV29Ytaz8qNYQLe5pyVguvfEFLStepEJnUY9/
+
 pragma solidity >=0.7.0 <0.9.0;
 
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/ERC721.sol";
-
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Counters.sol";
 
-contract Allowist is ERC721, Ownable {
+contract Allowlist is ERC721, Ownable {
     using Strings for uint256;
     using Counters for Counters.Counter;
     Counters.Counter private supply;
     string public uriPrefix = "";
     string public uriSuffix = ".json";
-    uint256 public cost = 0.02 ether;
+    uint256 public cost = 0 ether;
     uint256 public maxSupply = 3333;
     uint256 public maxMintAmountPerTx = 5;
-    bool public paused = true;
+    bool public paused = false;
 
-    constructor(string memory _uriPrefix) ERC721("KMB vs Vladimir", "KMB") {
+    constructor(string memory _uriPrefix) ERC721("Allowlist", "ALL") {
         setUriPrefix(_uriPrefix);
     }
 
@@ -85,8 +89,8 @@ contract Allowist is ERC721, Ownable {
                 ? string(
                     abi.encodePacked(
                         currentBaseURI,
-                        _tokenId.toString(),
-                        uriSuffix
+                        _tokenId.toString()
+                        // uriSuffix
                     )
                 )
                 : "";
