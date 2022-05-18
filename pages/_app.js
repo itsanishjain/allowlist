@@ -3,15 +3,18 @@ import "../styles/globals.css";
 import { ethers } from "ethers";
 import { Web3ReactProvider } from "@web3-react/core";
 
+import { UserContextProvider } from "../src/context/UserContext";
 import Layout from "../src/components/Layout";
 
 const getLibrary = (provider) => new ethers.providers.Web3Provider(provider);
 
 const MyApp = ({ Component, pageProps }) => (
   <Web3ReactProvider getLibrary={getLibrary}>
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <UserContextProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </UserContextProvider>
   </Web3ReactProvider>
 );
 

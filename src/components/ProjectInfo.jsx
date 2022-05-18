@@ -15,8 +15,8 @@ const ProjectInfo = ({ data }) => {
     profileImageFile: null,
     bannerImageFile: null,
 
-    projectFileChanged: false,
-    bannerFileChanged: false,
+    profileImageFileChanged: false,
+    bannerImageFileChanged: false,
   });
 
   const handleChange = (e) => {
@@ -32,7 +32,7 @@ const ProjectInfo = ({ data }) => {
     setImageFiles((prev) => ({
       ...prev,
       [e.target.name + "File"]: e.target.files[0],
-      [e.target.name + "Changed"]: true,
+      [e.target.name + "FileChanged"]: true,
     }));
 
     setProject((prev) => ({
@@ -50,25 +50,27 @@ const ProjectInfo = ({ data }) => {
 
     let imagesToUpload = {};
 
-    if (imageFiles.projectFileChanged) {
+    if (imageFiles.profileImageFileChanged) {
       imagesToUpload["profileImage"] = await uploadFile(
         `projectsImage`,
         imageFiles.profileImageFile
       );
     }
 
-    if (imageFiles.bannerFileChanged) {
+    if (imageFiles.bannerImageFileChanged) {
       imagesToUpload["bannerImage"] = await uploadFile(
         `projectsImage`,
         imageFiles.bannerImageFile
       );
     }
 
-    await updateDoc(doc(db, "projects", data.id), {
+    const updatedProject = {
       ...project,
       ...imagesToUpload,
-    })
-      .then((res) => console.log(res))
+    };
+
+    await updateDoc(doc(db, "projects", data.id), updatedProject)
+      .then(() => setProject(updatedProject))
       .catch((err) => console.log(err));
 
     setLoading(false);
@@ -77,7 +79,7 @@ const ProjectInfo = ({ data }) => {
   return (
     <div>
       <p>
-        <a href={`/users/${data.id}`}>public url: </a>
+        <a href={`/users/${project.id}`}>public url: </a>
       </p>
       <form onSubmit={handleSubmit}>
         <input
