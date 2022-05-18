@@ -7,13 +7,13 @@ const inputTagClasses = {
 }
 
 
-const Input = ({ inputTagType, placeholder }) => (
+const Input = ({ inputTagType, placeholder, onChange, value, name }) => (
     <div>
         {
             inputTagType === 'smallInput' ? (
-                <input placeholder={placeholder} type="text" id="small-input" className={inputTagClasses[inputTagType]} />
+                <input placeholder={placeholder} type="text" id="small-input" className={inputTagClasses[inputTagType]} onChange={onChange} value={value} name={name} />
             ) :
-                <textarea placeholder={placeholder} type="text" id="small-input" className={inputTagClasses[inputTagType]} />
+                <textarea placeholder={placeholder} type="text" id="small-input" className={inputTagClasses[inputTagType]} onChange={onChange} value={value} name={name} />
         }
     </div>
 )

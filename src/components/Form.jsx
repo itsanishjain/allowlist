@@ -64,7 +64,7 @@ const Form = () => {
 
     await addDoc(collection(db, "projects"), {
       ...formValues,
-      user: account,
+      creator: account,
       profileImage: image1,
       bannerImage: image2,
     })
@@ -93,7 +93,8 @@ const Form = () => {
         placeholder='Project Name'
       /> */}
 
-      <Input inputTagType="smallInput" placeholder="Name of your project" />
+      <Input inputTagType="smallInput" placeholder="Name of your project" onChange={handleChange}
+        value={formValues.name} name='name' />
 
 
       {/* <textarea
@@ -104,7 +105,8 @@ const Form = () => {
         placeholder='Description'
       /> */}
 
-      <Input inputTagType="largeInput" placeholder="Description" />
+      <Input inputTagType="largeInput" placeholder="Description" onChange={handleChange}
+        value={formValues.description} name='description' />
 
 
 

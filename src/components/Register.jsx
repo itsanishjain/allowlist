@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useWeb3React } from "@web3-react/core";
 import { Contract, providers, utils } from "ethers";
-import { addDoc, collection, query, where, getDocs } from "firebase/firestore";
+import { doc, collection, query, where, getDocs, updateDoc, arrayUnion } from "firebase/firestore";
 
 import { db } from "../utils/firebase";
 import { abi } from "../smartContract";
@@ -124,11 +124,9 @@ const UserRegister = ({ data }) => {
       TODO: If project have requirement to check eth balance and own collection then we need check and call smart contract 
     */
 
-    await addDoc(collection(db, `users`), {
-      projectId: router.query.id,
-      user: account,
-      name: data.name,
-      profileImage: data.profileImage,
+    await updateDoc(doc(db, 'projects', router.query.id), {
+      // projectId: router.query.id,
+      users: arrayUnion(account),
     })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));

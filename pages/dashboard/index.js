@@ -27,7 +27,7 @@ const DashboardPage = () => {
     if (!account) return;
 
     const projectsRef = collection(db, "projects");
-    const q = query(projectsRef, where("user", "==", account));
+    const q = query(projectsRef, where("creator", "==", account));
     getDocs(q)
       .then((snapshot) => {
         setData(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
