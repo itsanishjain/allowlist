@@ -4,8 +4,7 @@ import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../utils/firebase";
 
 const WalletRequirement = ({ data }) => {
-  // console.log("Data inside wallet requirement page", data);
-
+  
   const [formValues, setFormValues] = useState({
     ethAmount: data.ethAmount ? data.ethAmount : "",
     contractAddress: data.contractAddress ? data.contractAddress : "",
@@ -24,9 +23,9 @@ const WalletRequirement = ({ data }) => {
     e.preventDefault();
     console.log("adding wallet requirements");
 
-    // await updateDoc(doc(db, "projects", data.id), formValues)
-    //   .then((res) => console.log(res))
-    //   .catch((err) => console.log(err));
+    await updateDoc(doc(db, "projects", data.id), formValues)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -73,3 +72,6 @@ const WalletRequirement = ({ data }) => {
 };
 
 export default WalletRequirement;
+
+
+

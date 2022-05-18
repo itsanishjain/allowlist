@@ -9,6 +9,10 @@ import { abi } from "../smartContract";
 import { connectors } from "../utils/connectors";
 import Wallet from "../components/Wallet";
 
+
+
+// TODO: THIS PAGE IS FUCKED UP WE NEED TO LOOK THIS 
+
 const UserRegister = ({ data }) => {
   console.log({ data });
 
@@ -19,15 +23,7 @@ const UserRegister = ({ data }) => {
   const router = useRouter();
   const { account, activate, library, chainId } = useWeb3React();
 
-  // const [isOwnNFT,setIsOwnNFT] = useState(data.contractAddress?  )
-
   const checkWalletBalance = async () => {
-    // https://docs.ethers.io/v4/cookbook-accounts.html
-
-    console.log({ library });
-
-    console.log(library.network);
-
     if (chainId == 4 && library.connection.url != "metamask") {
       library.provider.http.connection.url = `https://rinkeby.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`;
     }
@@ -36,12 +32,6 @@ const UserRegister = ({ data }) => {
     const web3Provider = new providers.Web3Provider(provider);
 
     let balance = await web3Provider.getBalance(account);
-    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$", balance);
-
-    console.log("FLOAT", parseFloat(data.ethAmount));
-
-    console.log("FLOAT333333333333333", parseFloat(utils.formatEther(balance)));
-
     if (parseFloat(data.ethAmount) <= parseFloat(utils.formatEther(balance))) {
       console.log("Hell Yeh you can Register for premint you are a rich guy");
     } else console.log("BRO get Lost");
@@ -64,8 +54,6 @@ const UserRegister = ({ data }) => {
     );
 
     const isContractExist = await web3Provider.getCode(data.contractAddress);
-
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!", isContractExist);
 
     if (isContractExist === "0x") return;
 

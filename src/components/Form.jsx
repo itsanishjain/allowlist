@@ -23,6 +23,12 @@ const Form = () => {
     mintTime: "",
     mintAvailableSpots: "",
     mintPrice: "",
+    users: [],
+    ethAmount: "",
+    contractAddress: "",
+    contractName: "",
+    marketPlaceUrl: ""
+
   });
   const [imageSrc, setImageSrc] = useState({
     profileImageSrc: null,
@@ -85,31 +91,12 @@ const Form = () => {
   return (
 
     <form className="flex flex-col max-w-xl mx-auto mt-4 space-y-4 p-2" onSubmit={handleSubmit}>
-      {/* <input
-        name='name'
-        onChange={handleChange}
-        value={formValues.name}
-        type='text'
-        placeholder='Project Name'
-      /> */}
 
       <Input inputTagType="smallInput" placeholder="Name of your project" onChange={handleChange}
         value={formValues.name} name='name' />
 
-
-      {/* <textarea
-        name='description'
-        onChange={handleChange}
-        value={formValues.description}
-        type='text'
-        placeholder='Description'
-      /> */}
-
       <Input inputTagType="largeInput" placeholder="Description" onChange={handleChange}
         value={formValues.description} name='description' />
-
-
-
 
       <p>Profile Image</p>
       <input
@@ -130,7 +117,7 @@ const Form = () => {
       />
       <img src={imageSrc.bannerImage} />
 
-      {!loading ? <button>Create</button> : "Creating......"}
+      {!loading ? <button>Create</button> : <button disabled>Creating......</button>}
     </form>
   );
 };
