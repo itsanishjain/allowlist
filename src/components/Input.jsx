@@ -20,3 +20,4 @@ const Input = ({ inputTagType, placeholder, onChange, value, name }) => (
 
 
 export default Input
+

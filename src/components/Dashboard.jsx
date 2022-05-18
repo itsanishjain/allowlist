@@ -20,8 +20,6 @@ const Dashboard = ({ data }) => {
           </div>
         </a>
 
-
-
       </Link>
 
       <hr />
