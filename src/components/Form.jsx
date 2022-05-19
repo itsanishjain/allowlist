@@ -13,6 +13,7 @@ const Form = () => {
 
   const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState({
+    creator: account,
     name: "",
     description: "",
     profileImage: "",
@@ -29,25 +30,23 @@ const Form = () => {
     contractName: "",
     marketPlaceUrl: "",
   });
-  const [imageSrc, setImageSrc] = useState({
-    profileImageSrc: null,
-    bannerImageSrc: null,
+
+  const [imageFiles, setImageFiles] = useState({
+    profileImageFile: null,
+    bannerImageFile: null,
   });
 
   const router = useRouter();
 
-  const onImageChange = (e) => {
-    const reader = new FileReader();
-    reader.onload = function (onLoadEvent) {
-      setImageSrc((prev) => ({
-        ...prev,
-        [e.target.name]: onLoadEvent.target.result,
-      }));
-    };
-    reader.readAsDataURL(e.target.files[0]);
+  const handleImageChange = (e) => {
+    setImageFiles((prev) => ({
+      ...prev,
+      [e.target.name + "File"]: e.target.files[0],
+    }));
+
     setFormValues((prev) => ({
       ...prev,
-      [e.target.name]: e.target.files[0],
+      [e.target.name]: URL.createObjectURL(e.target.files[0]),
     }));
   };
 
@@ -68,19 +67,18 @@ const Form = () => {
 
     const image1 = await uploadFile(
       `projects/${docID}`,
-      formValues.profileImage,
+      imageFiles.profileImageFile,
       "profileImage"
     );
 
     const image2 = await uploadFile(
       `projects/${docID}`,
-      formValues.bannerImage,
+      imageFiles.bannerImageFile,
       "bannerImage"
     );
 
     await setDoc(docRef, {
       ...formValues,
-      creator: account,
       profileImage: image1,
       bannerImage: image2,
     })
@@ -121,21 +119,21 @@ const Form = () => {
       <p>Profile Image</p>
       <input
         name='profileImage'
-        onChange={onImageChange}
+        onChange={handleImageChange}
         accept='image/*'
         type='file'
       />
 
-      <img src={imageSrc.profileImage} />
+      <img src={formValues.profileImage} />
 
       <p>Banner Image</p>
       <input
         name='bannerImage'
-        onChange={onImageChange}
+        onChange={handleImageChange}
         accept='image/*'
         type='file'
       />
-      <img src={imageSrc.bannerImage} />
+      <img src={formValues.bannerImage} />
 
       {!loading ? (
         <button>Create</button>
