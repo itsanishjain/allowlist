@@ -1,6 +1,12 @@
 import { useContext, useState } from 'react'
 import { UserContext } from '../context/UserContext';
-import { providers, Contract } from 'ethers';
+import { providers, Contract, utils } from 'ethers';
+
+import { allowlistABI } from '../smartContract/allowlistABI'
+
+
+const ALLOWLIST_CONTRACT = "0xfdb45a71fa1761fb43d2d665a3e1cc4a31b10e4c"
+
 
 
 const Mint = () => {
@@ -18,9 +24,11 @@ const Mint = () => {
             const provider = await library.provider;
             const web3Provider = new providers.Web3Provider(provider);
 
-            const contract = new Contract(contractAddress, abi, web3Provider.getSigner());
-            const tx = await contract.mint({
-                value: utils.parseEther("0.001"),
+            const contract = new Contract(ALLOWLIST_CONTRACT, allowlistABI, web3Provider.getSigner());
+
+            console.log()
+            const tx = await contract.mint(1, {
+                value: utils.parseEther("0"),
             });
             setMinting(true);
             await tx.wait();
@@ -40,7 +48,7 @@ const Mint = () => {
                 !minting ? <button onClick={mintNFT}>Mint</button> : "Minting......."
             }
 
-            {library ? "YES": "Noooooooo"}
+            {library ? "YES" : "Noooooooo"}
 
 
         </div>
