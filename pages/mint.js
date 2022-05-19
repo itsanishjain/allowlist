@@ -1,13 +1,10 @@
-import React from 'react'
-import Mint from '../src/components/Mint'
+import React from "react";
+import Mint from "../src/components/Mint";
 
-const mintPage = () => {
-    return (
-        <div>
+const MintPage = () => (
+  <div>
+    <Mint />
+  </div>
+);
 
-            <Mint />
-        </div>
-    )
-}
-
-export default mintPage
+export default MintPage;

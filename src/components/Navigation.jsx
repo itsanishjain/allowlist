@@ -11,7 +11,7 @@ const Navigation = () => {
   const { isLoggedIn, disconnect } = useContext(UserContext);
 
   const navigation = [
-    { title: "Activate Pass", path: '/activate-pass' },
+    { title: "Activate Pass", path: "/activate-pass" },
     { title: "Dashboard", path: "/dashboard" },
     { title: "Create project", path: "/dashboard/new" },
   ];
@@ -79,8 +79,9 @@ const Navigation = () => {
           </div>
         </div>
         <div
-          className={`flex-1 justify-between flex-row-reverse lg:overflow-visible lg:flex lg:pb-0 lg:pr-0 lg:h-auto ${toggle ? "h-screen pb-20 overflow-auto pr-4" : "hidden"
-            }`}>
+          className={`flex-1 justify-between flex-row-reverse lg:overflow-visible lg:flex lg:pb-0 lg:pr-0 lg:h-auto ${
+            toggle ? "h-screen pb-20 overflow-auto pr-4" : "hidden"
+          }`}>
           {!isLoggedIn ? (
             <div>
               <ul className='flex flex-col-reverse space-x-0 lg:space-x-6 lg:flex-row'>
@@ -95,18 +96,19 @@ const Navigation = () => {
                 </li>
               </ul>
             </div>
-          ) : <div>
-            <ul className='flex flex-col-reverse space-x-0 lg:space-x-6 lg:flex-row'>
-              <li className='mt-8 lg:mt-0 mb-8 lg:mb-0'>
-                <button
-                  className='py-3 px-4 text-center text-white bg-purple-500 hover:bg-purple-700 rounded-md shadow block lg:inline'
-                  onClick={disconnect}>
-                  Disconnect
-                </button>
-              </li>
-            </ul>
-          </div>
-          }
+          ) : (
+            <div>
+              <ul className='flex flex-col-reverse space-x-0 lg:space-x-6 lg:flex-row'>
+                <li className='mt-8 lg:mt-0 mb-8 lg:mb-0'>
+                  <button
+                    className='py-3 px-4 text-center text-white bg-purple-500 hover:bg-purple-700 rounded-md shadow block lg:inline'
+                    onClick={disconnect}>
+                    Disconnect
+                  </button>
+                </li>
+              </ul>
+            </div>
+          )}
           <div className='flex-1'>
             <ul className='justify-center items-center space-y-8 lg:flex lg:space-x-6 lg:space-y-0'>
               {navigation.map((item, idx) => (

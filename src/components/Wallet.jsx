@@ -11,20 +11,21 @@ const Wallet = () => {
     await activate(connectors[walletName], () => {
       alert("Connection Rejected");
       isCancelled = true;
-    })
+    });
     if (isCancelled) return;
 
-    localStorage.setItem("provider", walletName)
+    localStorage.setItem("provider", walletName);
     alert("Connected Successfully");
-
-  }
+  };
 
   return (
     <div className='space-y-10 max-w-lg mx-auto  shadow-md rounded-md p-8 '>
       {!account ? (
-        <div className="flex flex-col space-y-4">
-          <button onClick={() => connectWallet('injected')}>MetaMask</button>
-          <button onClick={() => connectWallet('walletConnect')}>WalletConnect</button>
+        <div className='flex flex-col space-y-4'>
+          <button onClick={() => connectWallet("injected")}>MetaMask</button>
+          <button onClick={() => connectWallet("walletConnect")}>
+            WalletConnect
+          </button>
         </div>
       ) : (
         <>

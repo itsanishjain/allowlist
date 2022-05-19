@@ -4,7 +4,6 @@ import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../utils/firebase";
 
 const WalletRequirement = ({ data }) => {
-  
   const [formValues, setFormValues] = useState({
     ethAmount: data.ethAmount ? data.ethAmount : "",
     contractAddress: data.contractAddress ? data.contractAddress : "",
@@ -72,6 +71,3 @@ const WalletRequirement = ({ data }) => {
 };
 
 export default WalletRequirement;
-
-
-
