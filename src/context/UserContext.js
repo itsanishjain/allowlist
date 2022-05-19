@@ -40,7 +40,7 @@ export const UserContextProvider = ({ children }) => {
     const isContractExist = await web3Provider.getCode(ALLOWLIST_CONTRACT);
 
     if (isContractExist === "0x") {
-      console.log("Contract not exist in this chain")
+      console.log(`Allowlist NFT Contract does not exist in this chain ${chainId}`)
       return
     };
     const response = await contract.balanceOf(currentUserAccount);

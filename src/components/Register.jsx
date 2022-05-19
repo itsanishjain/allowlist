@@ -1,27 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useRouter } from "next/router";
-import { useWeb3React } from "@web3-react/core";
 import { Contract, providers, utils } from "ethers";
-import { doc, collection, query, where, getDocs, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 
 import { db } from "../utils/firebase";
+import { UserContext } from "../context/UserContext";
 import { abi } from "../smartContract";
-import { connectors } from "../utils/connectors";
+
 import Wallet from "../components/Wallet";
 
 
-
-// TODO: THIS PAGE IS FUCKED UP WE NEED TO LOOK THIS 
-
 const UserRegister = ({ data }) => {
-  console.log({ data });
 
+  const { user: account, library, chainId } = useContext(UserContext)
   const [loading, setLoading] = useState(false);
-
-  const [isShowRegistered, setIsShowRegintered] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [temp, setTemp] = useState(false);
 
   const router = useRouter();
-  const { account, activate, library, chainId } = useWeb3React();
 
   const checkWalletBalance = async () => {
     if (chainId == 4 && library.connection.url != "metamask") {
@@ -34,12 +30,17 @@ const UserRegister = ({ data }) => {
     let balance = await web3Provider.getBalance(account);
     if (parseFloat(data.ethAmount) <= parseFloat(utils.formatEther(balance))) {
       console.log("Hell Yeh you can Register for premint you are a rich guy");
-    } else console.log("BRO get Lost");
+      setTemp(true)
+
+    } else {
+      // alert("Not enough ETH")
+      console.log("BRO get Lost")
+    };
 
     console.log(account + ":" + utils.formatEther(balance));
   };
 
-  const checkBalanceOf = async () => {
+  const checkNFTBalance = async () => {
     if (chainId == 4 && library.connection.url != "metamask") {
       library.provider.http.connection.url = `https://rinkeby.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`;
     }
@@ -47,75 +48,42 @@ const UserRegister = ({ data }) => {
     const provider = await library.provider;
     const web3Provider = new providers.Web3Provider(provider);
 
-    const contract = new Contract(
-      data.contractAddress,
-      abi,
-      web3Provider.getSigner()
-    );
+    const contract = new Contract(data.contractAddress, abi, web3Provider.getSigner());
 
     const isContractExist = await web3Provider.getCode(data.contractAddress);
 
-    if (isContractExist === "0x") return;
+    console.log({ isContractExist })
+
+    if (isContractExist === "0x") {
+      console.log("NFT NOT ON THIS CHAIN")
+      return
+    };
 
     const response = await contract.balanceOf(account);
 
     if (parseInt(response)) {
+      // alert("YOU OWN THE NFT WE WANT")
       console.log("Fuck Yeh You own this NFT", parseInt(response));
+      setTemp(true)
     } else {
+      // alert(`You dont own ${data.contractName}`)
       console.log("Get the fuck of ", parseInt(response));
     }
   };
 
   useEffect(() => {
-    const provider = localStorage.getItem("provider");
-    if (provider) activate(connectors[provider]);
-  }, [activate, router]);
+    if (!account) return;
+    setIsRegistered(data.users.includes(account))
+    checkWalletBalance();
+    if (data.contractAddress) checkNFTBalance()
+  }, [account])
 
-  if (account) {
-    if (data.ethAmount) {
-      checkWalletBalance();
-    } else {
-      console.log("Project is not checking for ETH balance");
-    }
 
-    if (data.contractAddress) {
-      checkBalanceOf();
-    } else {
-      console.log("Project is not checking for any NFT");
-    }
-
-    console.log("LOGGED IN");
-    const projectsRef = collection(db, "users");
-    const q = query(
-      projectsRef,
-      where("user", "==", account),
-      where("projectId", "==", router.query.id)
-    );
-
-    getDocs(q)
-      .then((snapshot) => {
-        snapshot.forEach((doc) => {
-          if (Object.keys(doc.data()).length) {
-            console.log("YES");
-            console.log(doc.data());
-            setIsShowRegintered(true);
-          }
-        });
-      })
-      .catch((err) => console.log(err));
-  }
 
   const handleSubmit = async () => {
     setLoading(true);
 
-    /*
-      TODO: If project have requirement to check eth balance and own collection then we need check and call smart contract 
-    */
-
-    await updateDoc(doc(db, 'projects', router.query.id), {
-      // projectId: router.query.id,
-      users: arrayUnion(account),
-    })
+    await updateDoc(doc(db, 'projects', router.query.id), { users: arrayUnion(account) })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
 
@@ -130,17 +98,13 @@ const UserRegister = ({ data }) => {
       <p>REGISTER PAGE</p>
       <Wallet />
 
-      {account ? (
-        <>
-          {!isShowRegistered ? (
-            <button onClick={handleSubmit}>Register</button>
-          ) : (
-            "ALREADY REGISTER"
-          )}
-        </>
-      ) : (
-        "PLEASE CONNTECT WAllET"
-      )}
+      <>
+        {!isRegistered ? (
+          temp && <button onClick={handleSubmit}>Register</button>
+        ) : (
+          "ALREADY REGISTER"
+        )}
+      </>
 
       {loading && "Registering.................."}
     </div>
