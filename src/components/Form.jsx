@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useWeb3React } from "@web3-react/core";
-import { addDoc, collection } from "firebase/firestore";
+import { doc, setDoc, collection } from "firebase/firestore";
 
 import { db } from "../utils/firebase";
 import { uploadFile } from "../utils/helpers";
@@ -27,8 +27,7 @@ const Form = () => {
     ethAmount: "",
     contractAddress: "",
     contractName: "",
-    marketPlaceUrl: ""
-
+    marketPlaceUrl: "",
   });
   const [imageSrc, setImageSrc] = useState({
     profileImageSrc: null,
@@ -64,17 +63,28 @@ const Form = () => {
 
     setLoading(true);
 
-    const image1 = await uploadFile(`projectsImage`, formValues.profileImage);
+    const docRef = doc(collection(db, "projects"));
+    const docID = docRef.id;
 
-    const image2 = await uploadFile(`projectsImage`, formValues.bannerImage);
+    const image1 = await uploadFile(
+      `projects/${docID}`,
+      formValues.profileImage,
+      "profileImage"
+    );
 
-    await addDoc(collection(db, "projects"), {
+    const image2 = await uploadFile(
+      `projects/${docID}`,
+      formValues.bannerImage,
+      "bannerImage"
+    );
+
+    await setDoc(docRef, {
       ...formValues,
       creator: account,
       profileImage: image1,
       bannerImage: image2,
     })
-      .then((res) => router.push(`/dashboard/${res.id}/settings`))
+      .then(() => router.push(`/dashboard/${docID}/settings`))
       .catch((err) => console.log(err));
 
     setLoading(false);
@@ -89,14 +99,24 @@ const Form = () => {
   }, [activate, router]);
 
   return (
+    <form
+      className='flex flex-col max-w-xl mx-auto mt-4 space-y-4 p-2'
+      onSubmit={handleSubmit}>
+      <Input
+        inputTagType='smallInput'
+        placeholder='Name of your project'
+        onChange={handleChange}
+        value={formValues.name}
+        name='name'
+      />
 
-    <form className="flex flex-col max-w-xl mx-auto mt-4 space-y-4 p-2" onSubmit={handleSubmit}>
-
-      <Input inputTagType="smallInput" placeholder="Name of your project" onChange={handleChange}
-        value={formValues.name} name='name' />
-
-      <Input inputTagType="largeInput" placeholder="Description" onChange={handleChange}
-        value={formValues.description} name='description' />
+      <Input
+        inputTagType='largeInput'
+        placeholder='Description'
+        onChange={handleChange}
+        value={formValues.description}
+        name='description'
+      />
 
       <p>Profile Image</p>
       <input
@@ -117,7 +137,11 @@ const Form = () => {
       />
       <img src={imageSrc.bannerImage} />
 
-      {!loading ? <button>Create</button> : <button disabled>Creating......</button>}
+      {!loading ? (
+        <button>Create</button>
+      ) : (
+        <button disabled>Creating......</button>
+      )}
     </form>
   );
 };

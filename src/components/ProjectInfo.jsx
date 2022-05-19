@@ -52,15 +52,17 @@ const ProjectInfo = ({ data }) => {
 
     if (imageFiles.profileImageFileChanged) {
       imagesToUpload["profileImage"] = await uploadFile(
-        `projectsImage`,
-        imageFiles.profileImageFile
+        `projects/${data.id}`,
+        imageFiles.profileImageFile,
+        "profileImage"
       );
     }
 
     if (imageFiles.bannerImageFileChanged) {
       imagesToUpload["bannerImage"] = await uploadFile(
-        `projectsImage`,
-        imageFiles.bannerImageFile
+        `projects/${data.id}`,
+        imageFiles.bannerImageFile,
+        "bannerImage"
       );
     }
 
