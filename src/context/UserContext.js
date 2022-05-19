@@ -22,6 +22,8 @@ export const UserContextProvider = ({ children }) => {
   };
 
   const isUserOwnAllowlistNFT = async (currentUserAccount) => {
+
+
     if (chainId == 4 && library.connection.url != "metamask") {
       library.provider.http.connection.url = `https://rinkeby.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`;
     }
@@ -71,7 +73,8 @@ export const UserContextProvider = ({ children }) => {
           isUserOwnAllowlistNFT,
           user: account,
           isLoggedIn: !!account,
-          isAllowlistActivated
+          isAllowlistActivated,
+          chainId
         }
       }>
       {
