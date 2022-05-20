@@ -1,25 +1,22 @@
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
+
 import { UserContext } from "../src/context/UserContext";
 
 const ActivatePass = () => {
-  const { isLoggedIn, account, isUserOwnAllowlistNFT, isAllowlistActivated } =
-    useContext(UserContext);
+  const { isLoggedIn, isAllowlistActivated } = useContext(UserContext);
+
   const router = useRouter();
 
-  const [isOwnNFT, setIsOwnNFT] = useState(false);
-
   useEffect(() => {
-    if (!isLoggedIn) return router.push("/");
-  }, [router, account, isLoggedIn]);
-
-  const handleActivate = () => {};
+    if (!isLoggedIn) return router.push("/login");
+  }, [isLoggedIn, router]);
 
   return (
     <div>
       Activate Pass Page
       {isAllowlistActivated ? (
-        "Activated"
+        <p>Activated</p>
       ) : (
         <button onClick={handleActivate}>Activate</button>
       )}
