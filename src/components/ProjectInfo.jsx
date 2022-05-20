@@ -5,6 +5,7 @@ import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../utils/firebase";
 import { uploadFile } from "../utils/helpers";
 import Input from "../components/Input";
+import Loader from "./Loader";
 
 const ProjectInfo = ({ data }) => {
   const [loading, setLoading] = useState(false);
@@ -96,6 +97,7 @@ const ProjectInfo = ({ data }) => {
             inputTagType='smallInput'
             value={project.name}
             onChange={handleChange}
+            required={true}
           />
 
           <Input
@@ -104,6 +106,7 @@ const ProjectInfo = ({ data }) => {
             inputTagType='largeInput'
             onChange={handleChange}
             value={project.description}
+            required={true}
           />
 
           {/* TODO: FIX UI FOR THE IMAGES */}
@@ -112,9 +115,8 @@ const ProjectInfo = ({ data }) => {
             accept='image/*'
             name='profileImage'
             onChange={handleImageChange}
-            className='form-control
-  mt-3
-  block text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100'
+            className='form-control mt-3 block text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100'
+
           />
           {project.profileImage && (
             <img
@@ -131,8 +133,7 @@ const ProjectInfo = ({ data }) => {
             accept='image/*'
             name='bannerImage'
             onChange={handleImageChange}
-            className='form-control
-  block text-sm mt-[-36px] text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100'
+            className='form-control block text-sm mt-[-36px] text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100'
           />
           {project.bannerImage && (
             <img
@@ -179,7 +180,7 @@ const ProjectInfo = ({ data }) => {
               <path
                 // fill-rule="evenodd"
                 d='M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z'
-                // clip-rule="evenodd"
+              // clip-rule="evenodd"
               ></path>
             </svg>
             <input
@@ -218,11 +219,11 @@ const ProjectInfo = ({ data }) => {
             onChange={handleChange}
           />
 
-          {loading ? (
-            <button className='disabled'>Updating......</button>
-          ) : (
+          {loading ?
+            <Loader />
+            :
             <button>Save</button>
-          )}
+          }
         </form>
       </div>
     </div>

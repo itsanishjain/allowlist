@@ -95,10 +95,12 @@
 
 ## TODO
 
-- Add require and checks for forms
+- Add require and checks for forms - DONE
+
 - Update the register page and check all logic are working or not
 - Create pass NFT art
 - Update pages with component if it is small
 - Images using Image component
 - Code optimization
 - Finally Creating bad ass UI
+- Alerts Notifications

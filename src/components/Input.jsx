@@ -8,7 +8,7 @@ const inputTagClasses = {
     "block p-4  w-full h-24 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500",
 };
 
-const Input = ({ inputTagType, placeholder, onChange, value, name }) => (
+const Input = ({ inputTagType, placeholder, onChange, value, name, required = false }) => (
   <div>
     {inputTagType === "smallInput" ? (
       <input
@@ -18,6 +18,7 @@ const Input = ({ inputTagType, placeholder, onChange, value, name }) => (
         name={name}
         value={value}
         onChange={onChange}
+        required={required}
       />
     ) : (
       <textarea
@@ -26,6 +27,7 @@ const Input = ({ inputTagType, placeholder, onChange, value, name }) => (
         name={name}
         value={value}
         onChange={onChange}
+        required={required}
       />
     )}
   </div>

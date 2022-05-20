@@ -7,15 +7,18 @@ import Loader from "./Loader";
 
 const WalletRequirement = ({ data }) => {
   const [loading, setLoading] = useState(false);
+  const [isWalletFormUpdated, setIsWalletFormUpdated] = useState(false);
+
 
   const [formValues, setFormValues] = useState({
-    ethAmount: data.ethAmount ? data.ethAmount : "",
-    contractAddress: data.contractAddress ? data.contractAddress : "",
-    contractName: data.contractName ? data.contractName : "",
-    marketPlaceUrl: data.marketPlaceUrl ? data.marketPlaceUrl : "",
+    ethAmount: data?.ethAmount,
+    contractAddress: data?.contractAddress,
+    contractName: data?.contractName,
+    marketPlaceUrl: data?.marketPlaceUrl
   });
 
   const handleChange = (e) => {
+    setIsWalletFormUpdated(true)
     setFormValues((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -24,15 +27,23 @@ const WalletRequirement = ({ data }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!isWalletFormUpdated) return
+
+
+    if (!formValues.ethAmount && !formValues.contractAddress && !formValues.contractName && !formValues.marketPlaceUrl) {
+      alert("At least one field is required")
+      return
+    }
+
     setLoading(true);
 
-    console.log("adding wallet requirements");
-
     await updateDoc(doc(db, "projects", data.id), formValues)
-      .then((res) => console.log(res))
+      .then(() => setIsWalletFormUpdated(false))
       .catch((err) => console.log(err));
 
     setLoading(false);
+
   };
 
   return (
@@ -45,6 +56,7 @@ const WalletRequirement = ({ data }) => {
         onChange={handleChange}
         value={formValues.ethAmount}
         inputTagType='smallInput'
+
       />
 
       <Input
@@ -53,6 +65,7 @@ const WalletRequirement = ({ data }) => {
         onChange={handleChange}
         value={formValues.contractAddress}
         inputTagType='smallInput'
+        required={formValues.contractName !== ''}
       />
 
       <Input
@@ -61,6 +74,7 @@ const WalletRequirement = ({ data }) => {
         onChange={handleChange}
         value={formValues.contractName}
         inputTagType='smallInput'
+        required={formValues.contractAddress !== ''}
       />
 
       <Input

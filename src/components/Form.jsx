@@ -6,6 +6,7 @@ import { db } from "../utils/firebase";
 import { uploadFile } from "../utils/helpers";
 import { UserContext } from "../context/UserContext";
 import Input from "./Input";
+import Loader from "./Loader";
 
 const Form = () => {
   const { account, isLoggedIn } = useContext(UserContext);
@@ -101,6 +102,7 @@ const Form = () => {
         onChange={handleChange}
         value={formValues.name}
         name='name'
+        required={true}
       />
 
       <Input
@@ -109,6 +111,7 @@ const Form = () => {
         onChange={handleChange}
         value={formValues.description}
         name='description'
+        required={true}
       />
 
       <p>Profile Image</p>
@@ -117,6 +120,7 @@ const Form = () => {
         onChange={handleImageChange}
         accept='image/*'
         type='file'
+        required={true}
       />
 
       <img src={formValues.profileImage} />
@@ -127,13 +131,14 @@ const Form = () => {
         onChange={handleImageChange}
         accept='image/*'
         type='file'
+        required={true}
       />
       <img src={formValues.bannerImage} />
 
-      {!loading ? (
-        <button>Create</button>
+      {loading ? (
+        <Loader />
       ) : (
-        <button disabled>Creating......</button>
+        <button>Create</button>
       )}
     </form>
   );
