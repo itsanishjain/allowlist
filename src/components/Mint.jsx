@@ -12,6 +12,7 @@ const Mint = () => {
   const [minting, setMinting] = useState(false);
 
   const mintNFT = async () => {
+    console.log({ library })
     setMinting(true);
     try {
       if (chainId == 4 && library.connection.url != "metamask") {

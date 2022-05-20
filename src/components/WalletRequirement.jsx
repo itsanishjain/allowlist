@@ -29,39 +29,42 @@ const WalletRequirement = ({ data }) => {
 
   return (
     <div>
-      <p>WalletRequirement</p>
+      <p className="mt-1 text-purple-600 ml-[650px]">
+        - Wallet <cite>Requirements</cite>
+      </p>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} classNameName="flex flex-col items-center">
         <input
           onChange={handleChange}
           value={formValues.ethAmount}
-          type='text'
-          placeholder='ETH required'
-          name='ethAmount'
+          type="text"
+          placeholder="ETH required"
+          name="ethAmount"
+          classNameName="p-2 bg-gray-400 text-black focus:text-white focus:bg-black placeholder:text-white mt-2 w-2/12"
         />
-        <br />
         <input
           onChange={handleChange}
           value={formValues.contractAddress}
-          type='text'
-          placeholder='contract address'
-          name='contractAddress'
+          type="text"
+          placeholder="contract address"
+          classNameName="p-2 bg-gray-400 text-black focus:text-white focus:bg-black placeholder:text-white mt-2 w-2/12"
+          name="contractAddress"
         />
-        <br />
         <input
           onChange={handleChange}
           value={formValues.contractName}
-          type='text'
-          placeholder='contract Name'
-          name='contractName'
+          type="text"
+          placeholder="contract Name"
+          classNameName="p-2 bg-gray-400 text-black focus:text-white focus:bg-black placeholder:text-white mt-2 w-2/12"
+          name="contractName"
         />
-        <br />
         <input
           onChange={handleChange}
           value={formValues.marketPlaceUrl}
-          type='text'
-          placeholder='contract Open sea url'
-          name='marketPlaceUrl'
+          type="text"
+          placeholder="contract Open sea url"
+          classNameName="p-2 bg-gray-400 text-black focus:text-white focus:bg-black placeholder:text-white mt-2 w-2/12"
+          name="marketPlaceUrl"
         />
 
         <button>save Settings</button>

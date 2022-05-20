@@ -6,14 +6,14 @@ import WalletRequirement from "../../../src/components/WalletRequirement";
 import RegisterUserList from "../../../src/components/RegisterUserList";
 
 const Settings = ({ data }) => (
-  <div className='my-20'>
+  <div >
     <ProjectInfo data={data} />
-    <hr />
-    <WalletRequirement data={data} />
+    {/* <hr /> */}
+    {/* <WalletRequirement data={data} /> */}
 
-    <hr />
+    {/* <hr /> */}
 
-    <RegisterUserList users={data.users} />
+    {/* <RegisterUserList users={data.users} /> */}
   </div>
 );
 

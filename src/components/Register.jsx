@@ -92,6 +92,9 @@ const UserRegister = ({ data }) => {
     setLoading(false);
   };
 
+
+  console.log(window.ethereum)
+
   return (
     <div>
       <p>{data.name}</p>
@@ -102,7 +105,7 @@ const UserRegister = ({ data }) => {
 
       <>
         {!isRegistered
-          ? temp && <button onClick={handleSubmit}>Register</button>
+          ? temp ? <button onClick={handleSubmit}>Register</button> : 'ERROR'
           : "ALREADY REGISTER"}
       </>
 

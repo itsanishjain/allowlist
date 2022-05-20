@@ -41,7 +41,7 @@ const DashboardPage = () => {
 
   return (
     <div>
-      <p className='text-center text-xl mt-4'>Dashboard</p>
+      <p className="text-center text-xl mt-4">Dashboard</p>
       {data.map((d, index) => (
         <Dashboard key={index} data={d} />
       ))}

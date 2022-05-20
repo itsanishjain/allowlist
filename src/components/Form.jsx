@@ -98,40 +98,41 @@ const Form = () => {
 
   return (
     <form
-      className='flex flex-col max-w-xl mx-auto mt-4 space-y-4 p-2'
-      onSubmit={handleSubmit}>
+      className="flex flex-col max-w-xl mx-auto mt-4 space-y-4 p-2"
+      onSubmit={handleSubmit}
+    >
       <Input
-        inputTagType='smallInput'
-        placeholder='Name of your project'
+        inputTagType="smallInput"
+        placeholder="Name of your project"
         onChange={handleChange}
         value={formValues.name}
-        name='name'
+        name="name"
       />
 
       <Input
-        inputTagType='largeInput'
-        placeholder='Description'
+        inputTagType="largeInput"
+        placeholder="Description"
         onChange={handleChange}
         value={formValues.description}
-        name='description'
+        name="description"
       />
 
       <p>Profile Image</p>
       <input
-        name='profileImage'
+        name="profileImage"
         onChange={handleImageChange}
-        accept='image/*'
-        type='file'
+        accept="image/*"
+        type="file"
       />
 
       <img src={formValues.profileImage} />
 
       <p>Banner Image</p>
       <input
-        name='bannerImage'
+        name="bannerImage"
         onChange={handleImageChange}
-        accept='image/*'
-        type='file'
+        accept="image/*"
+        type="file"
       />
       <img src={formValues.bannerImage} />
 
