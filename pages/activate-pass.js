@@ -2,6 +2,7 @@ import { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 
 import { UserContext } from "../src/context/UserContext";
+import Link from "next/link";
 
 const ActivatePass = () => {
   const { isLoggedIn, isAllowlistActivated } = useContext(UserContext);
@@ -18,7 +19,9 @@ const ActivatePass = () => {
       {isAllowlistActivated ? (
         <p>Activated</p>
       ) : (
-        <button>Activate</button>
+        <Link href="/mint">
+          <button>Activate</button>
+        </Link>
       )}
     </div>
   );
