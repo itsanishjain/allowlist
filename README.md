@@ -97,14 +97,16 @@
 
 - Add require and checks for forms - DONE
 
-- Update the register page and check all logic are working or not - DONE
+- Update the register page and check all logic are working or not -HOLD
 
-- Create pass NFT art
-- Update pages with component if it is small
+- Alerts Notifications
+
+- Update pages with component if it is small - HOLD
+
 - Images using Image component
 - Code optimization
 - Finally Creating bad ass UI
-- Alerts Notifications
+- Create pass NFT art 
 
 
 - `if (chainId == 4 && library.connection.url != "metamask") {

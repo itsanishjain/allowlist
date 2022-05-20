@@ -99,7 +99,7 @@ const UserRegister = ({ data }) => {
             <>
               <Wallet />
               {
-                account && (!isFunctionLoading.ethFunction && !isFunctionLoading.nftFunction) ? (
+                account && (
                   <div>
                     {
                       (validForRegistration.hasETH && validForRegistration.hasNFT) ? (
@@ -117,7 +117,7 @@ const UserRegister = ({ data }) => {
                       )
                     }
                   </div>
-                ) : <Loader />
+                )
               }
             </>
           )

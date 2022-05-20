@@ -46,9 +46,8 @@ export const UserContextProvider = ({ children }) => {
     }
     const response = await contract.balanceOf(currentUserAccount);
     return parseInt(response) !== 0;
+
   };
-
-
 
 
   useEffect(() => {
