@@ -5,8 +5,7 @@ import UserRegister from "../src/components/Register";
 
 const UserRegisterPage = ({ data }) => (
   <div>
-    <p className="text-xl ">Allowlist</p>
-    User Register
+    <p className="text-xl text-center ">Allowlist</p>
     <UserRegister data={data} />
   </div>
 );

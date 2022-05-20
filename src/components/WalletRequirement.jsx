@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { updateDoc, doc } from "firebase/firestore";
 
+
 import { db } from "../utils/firebase";
 import Input from "./Input";
 import Loader from "./Loader";
@@ -28,13 +29,13 @@ const WalletRequirement = ({ data }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!isWalletFormUpdated) return
+    // if (!isWalletFormUpdated) return
 
 
-    if (!formValues.ethAmount && !formValues.contractAddress && !formValues.contractName && !formValues.marketPlaceUrl) {
-      alert("At least one field is required")
-      return
-    }
+    // if (!formValues.ethAmount && !formValues.contractAddress && !formValues.contractName && !formValues.marketPlaceUrl) {
+    //   alert("At least one field is required")
+    //   return
+    // }
 
     setLoading(true);
 

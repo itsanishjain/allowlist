@@ -20,7 +20,8 @@ export const UserContextProvider = ({ children }) => {
     deactivate();
   };
 
-  const isUserOwnAllowlistNFT = async (currentUserAccount) => {
+  const isNFTOwned = async (currentUserAccount, contractAddress) => {
+
     if (chainId == 4 && library.connection.url != "metamask") {
       library.provider.http.connection.url = INFURA_RINKEBY_URL;
     }
@@ -29,22 +30,23 @@ export const UserContextProvider = ({ children }) => {
     const web3Provider = new providers.Web3Provider(provider);
 
     const contract = new Contract(
-      ALLOWLIST_CONTRACT,
+      contractAddress,
       abi,
       web3Provider.getSigner()
     );
 
-    const isContractExist = await web3Provider.getCode(ALLOWLIST_CONTRACT);
+    const isContractExist = await web3Provider.getCode(contractAddress);
 
     if (isContractExist === "0x") {
-      console.log(
-        `Allowlist NFT Contract does not exist in this chain ${chainId}`
-      );
+      console.log(`NFT Contract  not exist in this chain ${chainId}`);
       return;
     }
     const response = await contract.balanceOf(currentUserAccount);
     return parseInt(response) !== 0;
   };
+
+
+
 
   useEffect(() => {
     activate(connectors[localStorage.getItem("provider")]).then(() => {
@@ -54,7 +56,7 @@ export const UserContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (!account) return;
-    isUserOwnAllowlistNFT(account).then((res) => setIsAllowlistActivated(res));
+    isNFTOwned(account, ALLOWLIST_CONTRACT).then((res) => setIsAllowlistActivated(res));
   }, [account]);
 
   return (
@@ -64,7 +66,7 @@ export const UserContextProvider = ({ children }) => {
         deactivate,
         library,
         disconnect,
-        isUserOwnAllowlistNFT,
+        isNFTOwned,
         account,
         isLoggedIn: !!account,
         isAllowlistActivated,

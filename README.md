@@ -97,10 +97,19 @@
 
 - Add require and checks for forms - DONE
 
-- Update the register page and check all logic are working or not
+- Update the register page and check all logic are working or not - DONE
+
 - Create pass NFT art
 - Update pages with component if it is small
 - Images using Image component
 - Code optimization
 - Finally Creating bad ass UI
 - Alerts Notifications
+
+
+- `if (chainId == 4 && library.connection.url != "metamask") {
+      library.provider.http.connection.url = INFURA_RINKEBY_URL;
+    }`
+
+    > NOTE: have to update this code based on the chain we choose to go live on
+

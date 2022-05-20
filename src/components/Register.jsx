@@ -8,77 +8,30 @@ import { abi } from "../smartContract";
 import { UserContext } from "../context/UserContext";
 import { INFURA_RINKEBY_URL } from "../utils/constants";
 import Wallet from "../components/Wallet";
+import Loader from "./Loader";
 
 const UserRegister = ({ data }) => {
-  const { account, library, chainId } = useContext(UserContext);
+  const { account, library, chainId, isNFTOwned } = useContext(UserContext);
 
   const [loading, setLoading] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(false);
-  const [temp, setTemp] = useState(false);
+
+  const [isRegistered, setIsRegistered] = useState();
+  const [validForRegistration, setValidForRegistration] = useState(false);
 
   const router = useRouter();
 
-  const checkWalletBalance = async () => {
+  const hasEnoughETH = async () => {
     if (chainId == 4 && library.connection.url != "metamask") {
       library.provider.http.connection.url = INFURA_RINKEBY_URL;
     }
 
     const provider = await library.provider;
     const web3Provider = new providers.Web3Provider(provider);
-
     let balance = await web3Provider.getBalance(account);
-    if (parseFloat(data.ethAmount) <= parseFloat(utils.formatEther(balance))) {
-      console.log("Hell Yeh you can Register for premint you are a rich guy");
-      setTemp(true);
-    } else {
-      // alert("Not enough ETH")
-      console.log("BRO get Lost");
-    }
 
-    console.log(account + ":" + utils.formatEther(balance));
+    return parseFloat(data.ethAmount) <= parseFloat(utils.formatEther(balance))
+
   };
-
-  const checkNFTBalance = async () => {
-    if (chainId == 4 && library.connection.url != "metamask") {
-      library.provider.http.connection.url = INFURA_RINKEBY_URL;
-    }
-
-    const provider = await library.provider;
-    const web3Provider = new providers.Web3Provider(provider);
-
-    const contract = new Contract(
-      data.contractAddress,
-      abi,
-      web3Provider.getSigner()
-    );
-
-    const isContractExist = await web3Provider.getCode(data.contractAddress);
-
-    console.log({ isContractExist });
-
-    if (isContractExist === "0x") {
-      console.log("NFT NOT ON THIS CHAIN");
-      return;
-    }
-
-    const response = await contract.balanceOf(account);
-
-    if (parseInt(response)) {
-      // alert("YOU OWN THE NFT WE WANT")
-      console.log("Fuck Yeh You own this NFT", parseInt(response));
-      setTemp(true);
-    } else {
-      // alert(`You dont own ${data.contractName}`)
-      console.log("Get the fuck of ", parseInt(response));
-    }
-  };
-
-  useEffect(() => {
-    if (!account) return;
-    setIsRegistered(data.users.includes(account));
-    checkWalletBalance();
-    if (data.contractAddress) checkNFTBalance();
-  }, [account]);
 
   const handleSubmit = async () => {
     setLoading(true);
@@ -92,14 +45,31 @@ const UserRegister = ({ data }) => {
     setLoading(false);
   };
 
+
+  useEffect(() => {
+    if (!account) return;
+    setIsRegistered(data?.users.includes(account));
+    if (hasEnoughETH()) setValidForRegistration(true)
+    if (data.contractAddress) {
+      isNFTOwned(account, data.contractAddress).then((res) => {
+        setValidForRegistration(res)
+      })
+    }
+  }, [account]);
+
+
   return (
-    <div>
+    <div className="max-w-lg mx-auto p-4 mt-8">
       <p>{data.name}</p>
       <p>{data.description}</p>
+      <img src={data.bannerImage} />
+      <img src={data.profileImage} />
+
+      {/* {data.ethAmount && `Have at least ${data.ethAmount} ETH in your wallet`} */}
 
       <p>REGISTER PAGE</p>
       <Wallet />
-
+      {/* 
       <>
         {!isRegistered ? (
           temp ? (
@@ -110,9 +80,10 @@ const UserRegister = ({ data }) => {
         ) : (
           "ALREADY REGISTER"
         )}
-      </>
+      </> */}
 
-      {loading && "Registering.................."}
+      {loading && <Loader />}
+
     </div>
   );
 };
