@@ -10,7 +10,7 @@ import { INFURA_RINKEBY_URL } from "../utils/constants";
 import Wallet from "../components/Wallet";
 
 const UserRegister = ({ data }) => {
-  const { user: account, library, chainId } = useContext(UserContext);
+  const { account, library, chainId } = useContext(UserContext);
 
   const [loading, setLoading] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);

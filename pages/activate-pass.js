@@ -3,12 +3,8 @@ import { useRouter } from "next/router";
 import { UserContext } from "../src/context/UserContext";
 
 const ActivatePass = () => {
-  const {
-    isLoggedIn,
-    user: account,
-    isUserOwnAllowlistNFT,
-    isAllowlistActivated,
-  } = useContext(UserContext);
+  const { isLoggedIn, account, isUserOwnAllowlistNFT, isAllowlistActivated } =
+    useContext(UserContext);
   const router = useRouter();
 
   const [isOwnNFT, setIsOwnNFT] = useState(false);

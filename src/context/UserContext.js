@@ -65,7 +65,7 @@ export const UserContextProvider = ({ children }) => {
         library,
         disconnect,
         isUserOwnAllowlistNFT,
-        user: account,
+        account,
         isLoggedIn: !!account,
         isAllowlistActivated,
         chainId,

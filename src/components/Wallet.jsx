@@ -4,7 +4,7 @@ import { truncateAddress } from "../utils/helpers";
 import { UserContext } from "../context/UserContext";
 
 const Wallet = () => {
-  const { user: account, activate, disconnect } = useContext(UserContext);
+  const { account, activate, disconnect } = useContext(UserContext);
 
   const connectWallet = async (walletName) => {
     let isCancelled = false;
