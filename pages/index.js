@@ -17,7 +17,7 @@ const App = () => (
               <h1 className='text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-4xl lg:text-5xl xl:text-6xl'>
                 <span className='block xl:inline'>LoL HeHeHe</span>
                 <br />
-                <span className='block text-purple-500 xl:inline'>
+                <span className='block text-orange-500 xl:inline'>
                   Tell me more about you
                 </span>
               </h1>
@@ -29,7 +29,7 @@ const App = () => (
               <div className='relative flex flex-col sm:flex-row sm:space-x-4'>
                 <a
                   href='#_'
-                  className='flex items-center w-full px-6 py-3 mb-3 text-lg text-white bg-purple-500 rounded-md sm:mb-0 hover:bg-purple-700 sm:w-auto'>
+                  className='flex items-center w-full px-6 py-3 mb-3 text-lg text-white bg-orange-500 rounded-md sm:mb-0 hover:bg-orange-700 sm:w-auto'>
                   Try It Free
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -83,19 +83,19 @@ const App = () => (
           </p>
           <ul className='p-0 m-0 leading-6 border-0 border-gray-300'>
             <li className='box-border relative py-1 pl-0 text-left text-gray-500 border-solid'>
-              <span className='inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-purple-500 rounded-full'>
+              <span className='inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-orange-500 rounded-full'>
                 <span className='text-sm font-bold'>✓</span>
               </span>{" "}
               Maximize productivity and growth
             </li>
             <li className='box-border relative py-1 pl-0 text-left text-gray-500 border-solid'>
-              <span className='inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-purple-500 rounded-full'>
+              <span className='inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-orange-500 rounded-full'>
                 <span className='text-sm font-bold'>✓</span>
               </span>{" "}
               Speed past your competition
             </li>
             <li className='box-border relative py-1 pl-0 text-left text-gray-500 border-solid'>
-              <span className='inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-purple-500 rounded-full'>
+              <span className='inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-orange-500 rounded-full'>
                 <span className='text-sm font-bold'>✓</span>
               </span>{" "}
               Learn the top techniques
@@ -114,19 +114,19 @@ const App = () => (
           </p>
           <ul className='p-0 m-0 leading-6 border-0 border-gray-300'>
             <li className='box-border relative py-1 pl-0 text-left text-gray-500 border-solid'>
-              <span className='inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-purple-500 rounded-full'>
+              <span className='inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-orange-500 rounded-full'>
                 <span className='text-sm font-bold'>✓</span>
               </span>{" "}
               Automated task management
             </li>
             <li className='box-border relative py-1 pl-0 text-left text-gray-500 border-solid'>
-              <span className='inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-purple-500 rounded-full'>
+              <span className='inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-orange-500 rounded-full'>
                 <span className='text-sm font-bold'>✓</span>
               </span>{" "}
               Detailed analytics for your data
             </li>
             <li className='box-border relative py-1 pl-0 text-left text-gray-500 border-solid'>
-              <span className='inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-purple-500 rounded-full'>
+              <span className='inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-orange-500 rounded-full'>
                 <span className='text-sm font-bold'>✓</span>
               </span>{" "}
               Some awesome integrations

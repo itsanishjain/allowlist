@@ -28,7 +28,7 @@ const Settings = ({ data }) => {
   const getClassNames = (tabName) => {
     const tabClassName = {
       active:
-        "text-center block border border-purple-500 rounded py-2 px-4 bg-purple-500 hover:bg-purple-700 text-white",
+        "text-center block border border-orange-500 rounded py-2 px-4 bg-orange-500 hover:bg-orange-700 text-white",
       inactive: "text-center text-black block rounded py-2 px-4 text-white",
     };
 

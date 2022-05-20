@@ -1,4 +1,6 @@
 import "../styles/globals.css";
+import { Toaster } from 'react-hot-toast';
+
 
 import { ethers } from "ethers";
 import { Web3ReactProvider } from "@web3-react/core";
@@ -12,6 +14,7 @@ const MyApp = ({ Component, pageProps }) => (
   <Web3ReactProvider getLibrary={getLibrary}>
     <UserContextProvider>
       <Layout>
+        <Toaster />
         <Component {...pageProps} />
       </Layout>
     </UserContextProvider>

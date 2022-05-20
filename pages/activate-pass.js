@@ -18,7 +18,7 @@ const ActivatePass = () => {
       {isAllowlistActivated ? (
         <p>Activated</p>
       ) : (
-        <button onClick={handleActivate}>Activate</button>
+        <button>Activate</button>
       )}
     </div>
   );

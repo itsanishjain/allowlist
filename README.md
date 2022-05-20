@@ -99,13 +99,15 @@
 
 - Update the register page and check all logic are working or not -HOLD
 
-- Alerts Notifications
+- Alerts Notifications - DONE
 
 - Update pages with component if it is small - HOLD
 
+- Adding permission for premium services 
+
 - Images using Image component
+
 - Code optimization
-- Finally Creating bad ass UI
 - Create pass NFT art 
 
 
@@ -115,5 +117,5 @@
 
     > NOTE: have to update this code based on the chain we choose to go live on
 
-- Adding permission for premium services 
 
+- Finally Creating bad ass UI 

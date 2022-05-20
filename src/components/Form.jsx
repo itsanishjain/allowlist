@@ -1,4 +1,6 @@
 import { useState, useEffect, useContext } from "react";
+import toast from 'react-hot-toast';
+
 import { useRouter } from "next/router";
 import { doc, setDoc, collection } from "firebase/firestore";
 
@@ -82,8 +84,14 @@ const Form = () => {
       profileImage: image1,
       bannerImage: image2,
     })
-      .then(() => router.push(`/dashboard/${docID}/settings`))
-      .catch((err) => console.log(err));
+      .then(() => {
+        toast.success("Project Created Successfully")
+        router.push(`/dashboard/${docID}/settings`)
+      })
+      .catch((error) => {
+
+        toast.error("Error :(")
+      });
 
     setLoading(false);
   };

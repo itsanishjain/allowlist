@@ -41,7 +41,7 @@ const Navigation = () => {
         <div className='flex items-center justify-between py-3 lg:py-4 lg:block'>
           <Link href='/'>
             <a className='mx-auto text-xl font-black leading-none text-gray-900 select-none'>
-              Home<span className='text-purple-500'>.</span>
+              Home<span className='text-orange-500'>.</span>
             </a>
           </Link>
           <div className='lg:hidden'>
@@ -79,16 +79,15 @@ const Navigation = () => {
           </div>
         </div>
         <div
-          className={`flex-1 justify-between flex-row-reverse lg:overflow-visible lg:flex lg:pb-0 lg:pr-0 lg:h-auto ${
-            toggle ? "h-screen pb-20 overflow-auto pr-4" : "hidden"
-          }`}>
+          className={`flex-1 justify-between flex-row-reverse lg:overflow-visible lg:flex lg:pb-0 lg:pr-0 lg:h-auto ${toggle ? "h-screen pb-20 overflow-auto pr-4" : "hidden"
+            }`}>
           {!isLoggedIn ? (
             <div>
               <ul className='flex flex-col-reverse space-x-0 lg:space-x-6 lg:flex-row'>
                 <li className='mt-8 lg:mt-0 mb-8 lg:mb-0'>
                   <Link href='/login'>
                     <a
-                      className='py-3 px-4 text-center text-white bg-purple-500 hover:bg-purple-700 rounded-md shadow block lg:inline'
+                      className='py-3 px-4 text-center text-white bg-orange-500 hover:bg-orange-700 rounded-md shadow block lg:inline'
                       onClick={handleToggle}>
                       Login
                     </a>
@@ -101,7 +100,7 @@ const Navigation = () => {
               <ul className='flex flex-col-reverse space-x-0 lg:space-x-6 lg:flex-row'>
                 <li className='mt-8 lg:mt-0 mb-8 lg:mb-0'>
                   <button
-                    className='py-3 px-4 text-center text-white bg-purple-500 hover:bg-purple-700 rounded-md shadow block lg:inline'
+                    className='py-3 px-4 text-center text-white bg-orange-500 hover:bg-orange-700 rounded-md shadow block lg:inline'
                     onClick={disconnect}>
                     Disconnect
                   </button>
@@ -112,7 +111,7 @@ const Navigation = () => {
           <div className='flex-1'>
             <ul className='justify-center items-center space-y-8 lg:flex lg:space-x-6 lg:space-y-0'>
               {navigation.map((item, idx) => (
-                <li key={idx} className='text-gray-600 hover:text-indigo-600'>
+                <li key={idx} className='text-gray-600 hover:text-orange-600'>
                   <Link href={item.path}>
                     <a onClick={handleToggle}>{item.title}</a>
                   </Link>

@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import toast from 'react-hot-toast';
 
 import { connectors } from "../utils/connectors";
 import { truncateAddress } from "../utils/helpers";
@@ -10,13 +11,16 @@ const Wallet = () => {
   const connectWallet = async (walletName) => {
     let isCancelled = false;
     await activate(connectors[walletName], () => {
-      alert("Connection Rejected");
+      // alert("Connection Rejected");
+      toast.error('Connection Rejected');
       isCancelled = true;
     });
     if (isCancelled) return;
 
     localStorage.setItem("provider", walletName);
-    alert("Connected Successfully");
+    // alert("Connected Successfully");
+    toast.success('Connected Successfully');
+
   };
 
   return (

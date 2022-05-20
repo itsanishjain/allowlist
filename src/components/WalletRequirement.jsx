@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { updateDoc, doc } from "firebase/firestore";
-
+import toast from 'react-hot-toast';
 
 import { db } from "../utils/firebase";
 import Input from "./Input";
@@ -40,8 +40,14 @@ const WalletRequirement = ({ data }) => {
     setLoading(true);
 
     await updateDoc(doc(db, "projects", data.id), formValues)
-      .then(() => setIsWalletFormUpdated(false))
-      .catch((err) => console.log(err));
+      .then(() => {
+        setIsWalletFormUpdated(false)
+        toast.success('Wallet requirements updateded')
+      })
+      .catch((err) => {
+        console.log(err)
+        toast.error('Error :(')
+      });
 
     setLoading(false);
 

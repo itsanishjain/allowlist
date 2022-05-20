@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { updateDoc, doc } from "firebase/firestore";
+import toast from 'react-hot-toast';
 
 import { db } from "../utils/firebase";
 import { uploadFile } from "../utils/helpers";
@@ -74,8 +75,14 @@ const ProjectInfo = ({ data }) => {
     };
 
     await updateDoc(doc(db, "projects", data.id), updatedProject)
-      .then(() => setProject(updatedProject))
-      .catch((err) => console.log(err));
+      .then(() => {
+        setProject(updatedProject)
+        toast.success('Project Updated Successfully')
+      })
+      .catch((err) => {
+        console.log(err)
+        toast.error('Error :(')
+      });
 
     setLoading(false);
   };
@@ -84,7 +91,7 @@ const ProjectInfo = ({ data }) => {
     <div className='flex flex-col md:grid md:grid-cols-3 max-w-6xl mx-auto'>
       <div className='my-2 md:my-0'>
         <Link href={`/${project.id}`}>
-          <a className='bg-gradient-to-r from-purple-400  m-2 p-4 block text-white '>
+          <a className='bg-gradient-to-r from-orange-400  m-2 p-4 block text-white '>
             Public URL
           </a>
         </Link>
