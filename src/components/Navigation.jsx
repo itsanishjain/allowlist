@@ -79,9 +79,8 @@ const Navigation = () => {
           </div>
         </div>
         <div
-          className={`flex-1 justify-between flex-row-reverse lg:overflow-visible lg:flex lg:pb-0 lg:pr-0 lg:h-auto ${
-            toggle ? "h-screen pb-20 overflow-auto pr-4" : "hidden"
-          }`}>
+          className={`flex-1 justify-between flex-row-reverse lg:overflow-visible lg:flex lg:pb-0 lg:pr-0 lg:h-auto ${toggle ? "h-screen pb-20 overflow-auto pr-4" : "hidden"
+            }`}>
           {!isLoggedIn ? (
             <div>
               <ul className='flex flex-col-reverse space-x-0 lg:space-x-6 lg:flex-row'>

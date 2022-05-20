@@ -3,7 +3,15 @@ import { updateDoc, doc } from "firebase/firestore";
 
 import { db } from "../utils/firebase";
 
+import Loader from "./Loader";
+import Input from "./Input";
+
 const WalletRequirement = ({ data }) => {
+
+
+  const [loading, setLoading] = useState(false)
+
+
   const [formValues, setFormValues] = useState({
     ethAmount: data.ethAmount ? data.ethAmount : "",
     contractAddress: data.contractAddress ? data.contractAddress : "",
@@ -20,56 +28,53 @@ const WalletRequirement = ({ data }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
     console.log("adding wallet requirements");
 
     await updateDoc(doc(db, "projects", data.id), formValues)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
+    setLoading(false)
   };
 
   return (
-    <div>
-      <p className="mt-1 text-purple-600 ml-[650px]">
-        - Wallet <cite>Requirements</cite>
-      </p>
+    <form onSubmit={handleSubmit} className="mt-8 max-w-md mx-auto flex flex-col space-y-4 p-8 shadow-md rounded-sm">
+      <Input
+        name="ethAmount"
+        placeholder="ETH Amount"
+        onChange={handleChange}
+        value={formValues.ethAmount}
+        inputTagType="smallInput"
+      />
 
-      <form onSubmit={handleSubmit} classNameName="flex flex-col items-center">
-        <input
-          onChange={handleChange}
-          value={formValues.ethAmount}
-          type="text"
-          placeholder="ETH required"
-          name="ethAmount"
-          classNameName="p-2 bg-gray-400 text-black focus:text-white focus:bg-black placeholder:text-white mt-2 w-2/12"
-        />
-        <input
-          onChange={handleChange}
-          value={formValues.contractAddress}
-          type="text"
-          placeholder="contract address"
-          classNameName="p-2 bg-gray-400 text-black focus:text-white focus:bg-black placeholder:text-white mt-2 w-2/12"
-          name="contractAddress"
-        />
-        <input
-          onChange={handleChange}
-          value={formValues.contractName}
-          type="text"
-          placeholder="contract Name"
-          classNameName="p-2 bg-gray-400 text-black focus:text-white focus:bg-black placeholder:text-white mt-2 w-2/12"
-          name="contractName"
-        />
-        <input
-          onChange={handleChange}
-          value={formValues.marketPlaceUrl}
-          type="text"
-          placeholder="contract Open sea url"
-          classNameName="p-2 bg-gray-400 text-black focus:text-white focus:bg-black placeholder:text-white mt-2 w-2/12"
-          name="marketPlaceUrl"
-        />
 
-        <button>save Settings</button>
-      </form>
-    </div>
+      <Input
+        name="contractAddress"
+        placeholder="Contract Address"
+        onChange={handleChange}
+        value={formValues.contractAddress}
+        inputTagType="smallInput"
+      />
+
+      <Input
+        name="contractName"
+        placeholder="Contract Name"
+        onChange={handleChange}
+        value={formValues.contractName}
+        inputTagType="smallInput"
+      />
+
+      <Input
+        name="marketPlaceUrl"
+        placeholder="Market Place URL"
+        onChange={handleChange}
+        value={formValues.marketPlaceUrl}
+        inputTagType="smallInput"
+      />
+      {
+        loading ? <Loader /> : <button className="p-4 w-full">Save</button>
+      }
+    </form>
   );
 };
 

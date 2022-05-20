@@ -92,9 +92,6 @@ const UserRegister = ({ data }) => {
     setLoading(false);
   };
 
-
-  console.log(window.ethereum)
-
   return (
     <div>
       <p>{data.name}</p>

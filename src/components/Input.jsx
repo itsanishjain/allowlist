@@ -14,7 +14,6 @@ const Input = ({ inputTagType, placeholder, onChange, value, name }) => (
       <input
         placeholder={placeholder}
         type='text'
-        id='small-input'
         className={inputTagClasses[inputTagType]}
         onChange={onChange}
         value={value}
@@ -24,7 +23,6 @@ const Input = ({ inputTagType, placeholder, onChange, value, name }) => (
       <textarea
         placeholder={placeholder}
         type='text'
-        id='small-input'
         className={inputTagClasses[inputTagType]}
         onChange={onChange}
         value={value}
