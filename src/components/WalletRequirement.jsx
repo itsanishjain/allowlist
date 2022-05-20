@@ -2,15 +2,11 @@ import { useState } from "react";
 import { updateDoc, doc } from "firebase/firestore";
 
 import { db } from "../utils/firebase";
-
-import Loader from "./Loader";
 import Input from "./Input";
+import Loader from "./Loader";
 
 const WalletRequirement = ({ data }) => {
-
-
-  const [loading, setLoading] = useState(false)
-
+  const [loading, setLoading] = useState(false);
 
   const [formValues, setFormValues] = useState({
     ethAmount: data.ethAmount ? data.ethAmount : "",
@@ -28,52 +24,53 @@ const WalletRequirement = ({ data }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
+
     console.log("adding wallet requirements");
 
     await updateDoc(doc(db, "projects", data.id), formValues)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
-    setLoading(false)
+
+    setLoading(false);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-8 max-w-md mx-auto flex flex-col space-y-4 p-8 shadow-md rounded-sm">
+    <form
+      onSubmit={handleSubmit}
+      className='mt-8 max-w-md mx-auto flex flex-col space-y-4 p-8 shadow-md rounded-sm'>
       <Input
-        name="ethAmount"
-        placeholder="ETH Amount"
+        name='ethAmount'
+        placeholder='ETH Amount'
         onChange={handleChange}
         value={formValues.ethAmount}
-        inputTagType="smallInput"
+        inputTagType='smallInput'
       />
 
-
       <Input
-        name="contractAddress"
-        placeholder="Contract Address"
+        name='contractAddress'
+        placeholder='Contract Address'
         onChange={handleChange}
         value={formValues.contractAddress}
-        inputTagType="smallInput"
+        inputTagType='smallInput'
       />
 
       <Input
-        name="contractName"
-        placeholder="Contract Name"
+        name='contractName'
+        placeholder='Contract Name'
         onChange={handleChange}
         value={formValues.contractName}
-        inputTagType="smallInput"
+        inputTagType='smallInput'
       />
 
       <Input
-        name="marketPlaceUrl"
-        placeholder="Market Place URL"
+        name='marketPlaceUrl'
+        placeholder='Market Place URL'
         onChange={handleChange}
         value={formValues.marketPlaceUrl}
-        inputTagType="smallInput"
+        inputTagType='smallInput'
       />
-      {
-        loading ? <Loader /> : <button className="p-4 w-full">Save</button>
-      }
+      {loading ? <Loader /> : <button className='p-4 w-full'>Save</button>}
     </form>
   );
 };
