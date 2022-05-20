@@ -3,9 +3,7 @@ import { providers, Contract, utils } from "ethers";
 
 import { UserContext } from "../src/context/UserContext";
 import { allowlistABI } from "../src/smartContract/allowlistABI";
-import { INFURA_URL } from "../src/utils/constants";
-
-const ALLOWLIST_CONTRACT = "0xfdb45a71fa1761fb43d2d665a3e1cc4a31b10e4c";
+import { ALLOWLIST_CONTRACT, INFURA_RINKEBY_URL } from "../src/utils/constants";
 
 const MintPage = () => {
   const { library, chainId } = useContext(UserContext);
@@ -17,7 +15,7 @@ const MintPage = () => {
 
     try {
       if (chainId == 4 && library.connection.url != "metamask") {
-        library.provider.http.connection.url = INFURA_URL;
+        library.provider.http.connection.url = INFURA_RINKEBY_URL;
       }
 
       const provider = await library.provider;

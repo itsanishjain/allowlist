@@ -4,9 +4,9 @@ import { Contract, providers, utils } from "ethers";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 
 import { db } from "../utils/firebase";
-import { UserContext } from "../context/UserContext";
 import { abi } from "../smartContract";
-
+import { UserContext } from "../context/UserContext";
+import { INFURA_RINKEBY_URL } from "../utils/constants";
 import Wallet from "../components/Wallet";
 
 const UserRegister = ({ data }) => {
@@ -20,7 +20,7 @@ const UserRegister = ({ data }) => {
 
   const checkWalletBalance = async () => {
     if (chainId == 4 && library.connection.url != "metamask") {
-      library.provider.http.connection.url = `https://rinkeby.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`;
+      library.provider.http.connection.url = INFURA_RINKEBY_URL;
     }
 
     const provider = await library.provider;
@@ -40,7 +40,7 @@ const UserRegister = ({ data }) => {
 
   const checkNFTBalance = async () => {
     if (chainId == 4 && library.connection.url != "metamask") {
-      library.provider.http.connection.url = `https://rinkeby.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`;
+      library.provider.http.connection.url = INFURA_RINKEBY_URL;
     }
 
     const provider = await library.provider;
@@ -101,9 +101,15 @@ const UserRegister = ({ data }) => {
       <Wallet />
 
       <>
-        {!isRegistered
-          ? temp ? <button onClick={handleSubmit}>Register</button> : 'ERROR'
-          : "ALREADY REGISTER"}
+        {!isRegistered ? (
+          temp ? (
+            <button onClick={handleSubmit}>Register</button>
+          ) : (
+            "ERROR"
+          )
+        ) : (
+          "ALREADY REGISTER"
+        )}
       </>
 
       {loading && "Registering.................."}

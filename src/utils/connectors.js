@@ -1,6 +1,12 @@
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 
+import {
+  INFURA_MAINNET_URL,
+  INFURA_ROPSTEN_URL,
+  INFURA_RINKEBY_URL,
+} from "./constants";
+
 const injected = new InjectedConnector({
   supportedChainIds: [1, 3, 4, 137],
 });
@@ -8,9 +14,9 @@ const injected = new InjectedConnector({
 const ALL_SUPPORTED_CHAIN_IDS = [1, 3, 4];
 
 const INFURA_NETWORK_URLS = {
-  1: `https://mainnet.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`,
-  3: `https://ropsten.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`,
-  4: `https://rinkeby.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`,
+  1: INFURA_MAINNET_URL,
+  3: INFURA_ROPSTEN_URL,
+  4: INFURA_RINKEBY_URL,
 };
 
 const walletConnect = new WalletConnectConnector({
@@ -20,7 +26,4 @@ const walletConnect = new WalletConnectConnector({
   qrcode: true,
 });
 
-export const connectors = {
-  injected,
-  walletConnect,
-};
+export const connectors = { injected, walletConnect };

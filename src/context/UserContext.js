@@ -1,11 +1,11 @@
 import React, { createContext, useState, useEffect } from "react";
 import { useWeb3React } from "@web3-react/core";
-import { connectors } from "../utils/connectors";
 import { Contract, providers } from "ethers";
-import { abi } from "../smartContract";
-import Loader from "../components/Loader";
 
-const ALLOWLIST_CONTRACT = "0xfdb45a71fa1761fb43d2d665a3e1cc4a31b10e4c";
+import { abi } from "../smartContract";
+import { connectors } from "../utils/connectors";
+import { ALLOWLIST_CONTRACT, INFURA_RINKEBY_URL } from "../utils/constants";
+import Loader from "../components/Loader";
 
 export const UserContext = createContext();
 
@@ -22,7 +22,7 @@ export const UserContextProvider = ({ children }) => {
 
   const isUserOwnAllowlistNFT = async (currentUserAccount) => {
     if (chainId == 4 && library.connection.url != "metamask") {
-      library.provider.http.connection.url = `https://rinkeby.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`;
+      library.provider.http.connection.url = INFURA_RINKEBY_URL;
     }
 
     const provider = await library.provider;
