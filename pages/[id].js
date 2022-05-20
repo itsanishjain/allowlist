@@ -1,7 +1,7 @@
 import { getDoc, doc } from "firebase/firestore";
 
 import { db } from "../src/utils/firebase";
-import UserRegister from "../src/components/Register";
+import UserRegister from "../src/components/UserRegister";
 
 const UserRegisterPage = ({ data }) => (
   <div>

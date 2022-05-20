@@ -35,11 +35,14 @@ export const UserContextProvider = ({ children }) => {
       web3Provider.getSigner()
     );
 
+    console.log({ contractAddress })
     const isContractExist = await web3Provider.getCode(contractAddress);
+
+    console.log({ isContractExist })
 
     if (isContractExist === "0x") {
       console.log(`NFT Contract  not exist in this chain ${chainId}`);
-      return;
+      return false;
     }
     const response = await contract.balanceOf(currentUserAccount);
     return parseInt(response) !== 0;

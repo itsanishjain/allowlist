@@ -113,3 +113,5 @@
 
     > NOTE: have to update this code based on the chain we choose to go live on
 
+- Adding permission for premium services 
+
