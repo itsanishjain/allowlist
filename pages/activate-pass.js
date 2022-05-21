@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 import { UserContext } from "../src/context/UserContext";
 import Link from "next/link";
+import Mint from "../src/components/Mint";
 
 const ActivatePass = () => {
   const { isLoggedIn, isAllowlistActivated } = useContext(UserContext);
@@ -16,12 +17,10 @@ const ActivatePass = () => {
   return (
     <div>
       Activate Pass Page
-      {isAllowlistActivated ? (
+      {isAllowlistActivated  ? (
         <p>Activated</p>
       ) : (
-        <Link href="/mint" passHref>
-          <button>Activate</button>
-        </Link>
+        <Mint />
       )}
     </div>
   );

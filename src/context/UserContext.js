@@ -24,9 +24,9 @@ export const UserContextProvider = ({ children }) => {
 
   const isNFTOwned = async (currentUserAccount, contractAddress) => {
 
-    console.log('user context', { library })
+    // console.log('user context', { library })
 
-    // console.log("KKKKKKKKKKKKKKKK", library.provider.http.connection.url)
+    console.log({ chainId })
 
     if (library.connection.url !== "metamask") {
       console.log({ chainId })
@@ -51,9 +51,10 @@ export const UserContextProvider = ({ children }) => {
       console.log(`NFT Contract  not exist in this chain ${chainId}`);
       return false;
     }
-    const response = await contract.balanceOf(currentUserAccount);
-    return parseInt(response) !== 0;
-
+    // const response = await contract.balanceOf(currentUserAccount);
+    return await contract.balanceOf(currentUserAccount)
+      .then((res) => parseInt(res) !== 0)
+      .catch((err) => false)
   };
 
 
@@ -65,8 +66,12 @@ export const UserContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (!account) return;
-    isNFTOwned(account, ALLOWLIST_CONTRACT).then((res) => setIsAllowlistActivated(res));
-  }, [account]);
+    isNFTOwned(account, ALLOWLIST_CONTRACT).then((res) =>
+
+      // setIsAllowlistActivated(res));
+
+      console.log("TTTTTTTTTTTTTTTTtt", res))
+  }, [account, library]);
 
   return (
     <UserContext.Provider

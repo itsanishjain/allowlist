@@ -120,3 +120,28 @@
 - Code optimization
 
 - Finally Creating bad ass UI 
+
+
+### Pros and cons on ETH and polygon
+
+> ETH testnets pros:
+  - no checking for wallets
+  - widely known
+  - 
+> ETH testnets cons:
+  - Have to deploy on testnets
+  - seems less serious
+
+> polygon pros:
+  - can deploy on mainnet
+  - seems more legit project
+
+> polygon pros:
+  - lot of checks for wallets
+
+
+
+
+### WHAT??
+
+> https://blockscan.com/address/0xBfa680c93e14880af7F4b67ad43e0bF36F9741d6

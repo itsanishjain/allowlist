@@ -1,4 +1,3 @@
-export const address = "0x09de76418751c1A49b2B2bf127c484861B6799BE";
 export const abi = [
   {
     inputs: [{ internalType: "string", name: "_uriPrefix", type: "string" }],
