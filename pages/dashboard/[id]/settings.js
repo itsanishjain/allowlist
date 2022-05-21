@@ -40,7 +40,7 @@ const Settings = ({ data }) => {
   }, [isLoggedIn, router]);
 
   return (
-    <>
+    <div className="mt-8">
       <ul className='flex mb-8 max-w-3xl mx-auto '>
         <li
           onClick={() => setActiveTab("projectInfo")}
@@ -57,12 +57,12 @@ const Settings = ({ data }) => {
         <li
           onClick={() => setActiveTab("registerUserList")}
           className='flex-1 mr-2 cursor-pointer'>
-          <a className={getClassNames("registerUserList")}>Register User</a>
+          <a className={getClassNames("registerUserList")}>Registered Users</a>
         </li>
       </ul>
 
       <Tab tabName={activeTab} data={data} />
-    </>
+    </div>
   );
 };
 

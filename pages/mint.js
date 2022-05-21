@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { UserContext } from "../src/context/UserContext";
 import { allowlistABI } from "../src/smartContract/allowlistABI";
 import { ALLOWLIST_CONTRACT, INFURA_RINKEBY_URL } from "../src/utils/constants";
+import { RPC_NETWORK_URLS } from "../src/utils/connectors";
 
 const MintPage = () => {
   const { library, chainId } = useContext(UserContext);
@@ -14,10 +15,11 @@ const MintPage = () => {
   const mintNFT = async () => {
     setMinting(true);
 
-    // try {
-    if (chainId == 4 && library.connection.url != "metamask") {
-      library.provider.http.connection.url = INFURA_RINKEBY_URL;
+    if (library.connection.url !== "metamask") {
+      console.log({ chainId })
+      library.provider.http.connection.url = RPC_NETWORK_URLS[chainId];
     }
+
 
     const provider = await library.provider;
     const web3Provider = new providers.Web3Provider(provider);

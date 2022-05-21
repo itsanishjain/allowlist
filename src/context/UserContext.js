@@ -3,11 +3,13 @@ import { useWeb3React } from "@web3-react/core";
 import { Contract, providers } from "ethers";
 
 import { abi } from "../smartContract";
-import { connectors } from "../utils/connectors";
-import { ALLOWLIST_CONTRACT, INFURA_RINKEBY_URL } from "../utils/constants";
+import { connectors, RPC_NETWORK_URLS } from "../utils/connectors";
+import { ALLOWLIST_CONTRACT } from "../utils/constants";
 import Loader from "../components/Loader";
 
 export const UserContext = createContext();
+
+
 
 export const UserContextProvider = ({ children }) => {
   const { account, activate, deactivate, chainId, library } = useWeb3React();
@@ -22,8 +24,13 @@ export const UserContextProvider = ({ children }) => {
 
   const isNFTOwned = async (currentUserAccount, contractAddress) => {
 
-    if (chainId == 4 && library.connection.url != "metamask") {
-      library.provider.http.connection.url = INFURA_RINKEBY_URL;
+    console.log('user context', { library })
+
+    // console.log("KKKKKKKKKKKKKKKK", library.provider.http.connection.url)
+
+    if (library.connection.url !== "metamask") {
+      console.log({ chainId })
+      library.provider.http.connection.url = RPC_NETWORK_URLS[chainId];
     }
 
     const provider = await library.provider;

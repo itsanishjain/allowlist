@@ -135,8 +135,6 @@ const Form = () => {
       />
 
 
-      {/* <img src={formValues.profileImage} /> */}
-
       {
         formValues.profileImage &&
         <div className="w-full h-96 md:h-auto md:w-48">
@@ -158,10 +156,6 @@ const Form = () => {
         className='form-control mt-3 block text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100'
         required={true}
       />
-
-
-      {/* <img src={formValues.bannerImage} /> */}
-
       {
         formValues.bannerImage &&
         <div className="w-full h-96 md:h-auto md:w-48">

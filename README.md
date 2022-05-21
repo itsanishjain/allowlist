@@ -107,7 +107,6 @@
 
 - Images using Image component - DONE
 
-- Code optimization
 - Create pass NFT art 
 
 
@@ -116,6 +115,8 @@
     }`
 
     > NOTE: have to update this code based on the chain we choose to go live on
+    - HALF DONE 
 
+- Code optimization
 
 - Finally Creating bad ass UI 
