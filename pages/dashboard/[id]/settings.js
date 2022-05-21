@@ -40,7 +40,7 @@ const Settings = ({ data }) => {
   }, [isLoggedIn, router]);
 
   return (
-    <div className="mt-8">
+    <div className='mt-8'>
       <ul className='flex mb-8 max-w-3xl mx-auto '>
         <li
           onClick={() => setActiveTab("projectInfo")}
@@ -66,7 +66,7 @@ const Settings = ({ data }) => {
   );
 };
 
-export async function getServerSideProps(ctx) {
+export const getServerSideProps = async (ctx) => {
   let data = {};
 
   await getDoc(doc(db, "projects", ctx.params.id))
@@ -74,6 +74,6 @@ export async function getServerSideProps(ctx) {
     .catch((err) => console.log(err));
 
   return { props: { data } };
-}
+};
 
 export default Settings;

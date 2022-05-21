@@ -1,11 +1,9 @@
 import { useEffect, useState, useContext } from "react";
 import { useRouter } from "next/router";
-import { collection, query, where, getDocs } from "firebase/firestore";
 
-import { db } from "../../src/utils/firebase";
 import { UserContext } from "../../src/context/UserContext";
-import Dashboard from "../../src/components/Dashboard";
 import Loader from "../../src/components/Loader";
+import Dashboard from "../../src/components/Dashboard";
 
 const DashboardPage = () => {
   const { account, isLoggedIn } = useContext(UserContext);
@@ -19,11 +17,10 @@ const DashboardPage = () => {
     if (!isLoggedIn) return router.push("/login");
     if (!account) return;
 
-    const projectsRef = collection(db, "projects");
-    const q = query(projectsRef, where("creator", "==", account));
-    getDocs(q)
-      .then((snapshot) => {
-        setData(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+    fetch(`/api/dashboard/${account}`)
+      .then((res) => res.json())
+      .then((res) => {
+        setData(res);
         setIsLoading(false);
       })
       .catch((err) => console.log(err));
