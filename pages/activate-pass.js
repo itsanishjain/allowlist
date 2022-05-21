@@ -2,11 +2,10 @@ import { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 
 import { UserContext } from "../src/context/UserContext";
-import Link from "next/link";
 import Mint from "../src/components/Mint";
 
 const ActivatePass = () => {
-  const { isLoggedIn, isAllowlistActivated } = useContext(UserContext);
+  const { isLoggedIn, allowlistNFT } = useContext(UserContext);
 
   const router = useRouter();
 
@@ -17,10 +16,10 @@ const ActivatePass = () => {
   return (
     <div>
       Activate Pass Page
-      {isAllowlistActivated  ? (
+      {allowlistNFT.isActivated ? (
         <p>Activated</p>
       ) : (
-        <Mint />
+        !allowlistNFT.hasErrors && <Mint />
       )}
     </div>
   );
