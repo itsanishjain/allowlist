@@ -107,7 +107,7 @@
 
 - Images using Image component - DONE
 
-- Create pass NFT art 
+- Create pass NFT art  - DONE
 
 
 - `if (chainId == 4 && library.connection.url != "metamask") {
