@@ -105,7 +105,7 @@
 
 - Adding permission for premium services 
 
-- Images using Image component
+- Images using Image component - DONE
 
 - Code optimization
 - Create pass NFT art 

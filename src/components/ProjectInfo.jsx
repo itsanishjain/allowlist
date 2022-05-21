@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { updateDoc, doc } from "firebase/firestore";
 import toast from 'react-hot-toast';
@@ -115,25 +116,21 @@ const ProjectInfo = ({ data }) => {
             value={project.description}
             required={true}
           />
-
-          {/* TODO: FIX UI FOR THE IMAGES */}
           <input
             type='file'
             accept='image/*'
             name='profileImage'
             onChange={handleImageChange}
             className='form-control mt-3 block text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100'
-
           />
-          {project.profileImage && (
-            <img
-              className=''
-              src={project.profileImage}
-              alt='Project image'
-              width={200}
-              height={200}
-            />
-          )}
+        
+          {
+            project.profileImage &&
+            <div className="w-full h-96 md:h-auto md:w-48">
+              <Image src={project.profileImage} alt='profile image' width="100%"
+                height="100%" layout="responsive" />
+            </div>
+          }
 
           <input
             type='file'
@@ -142,17 +139,15 @@ const ProjectInfo = ({ data }) => {
             onChange={handleImageChange}
             className='form-control block text-sm mt-[-36px] text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100'
           />
-          {project.bannerImage && (
-            <img
-              className='bg-cover bg-center'
-              src={project.bannerImage}
-              alt='Banner image'
-              width={200}
-              height={200}
-            />
-          )}
+          
 
-          {/* END IMAGE */}
+          {
+            project.bannerImage &&
+            <div className="w-full h-96 md:h-auto md:w-48">
+              <Image src={project.bannerImage} alt='profile image' width="100%"
+                height="100%" layout="responsive" />
+            </div>
+          }
 
           <Input
             name='link'

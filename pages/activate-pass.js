@@ -19,7 +19,7 @@ const ActivatePass = () => {
       {isAllowlistActivated ? (
         <p>Activated</p>
       ) : (
-        <Link href="/mint">
+        <Link href="/mint" passHref>
           <button>Activate</button>
         </Link>
       )}

@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import Image from "next/image";
 import toast from 'react-hot-toast';
 
 import { useRouter } from "next/router";
@@ -123,25 +124,52 @@ const Form = () => {
       />
 
       <p>Profile Image</p>
+
       <input
         name='profileImage'
         onChange={handleImageChange}
         accept='image/*'
         type='file'
+        className='mt-3 block text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer'
         required={true}
       />
 
-      <img src={formValues.profileImage} />
+
+      {/* <img src={formValues.profileImage} /> */}
+
+      {
+        formValues.profileImage &&
+        <div className="w-full h-96 md:h-auto md:w-48">
+          <Image src={formValues.profileImage} alt='profile image' width="100%"
+            height="100%" layout="responsive" />
+        </div>
+      }
+
+
+
 
       <p>Banner Image</p>
+
       <input
         name='bannerImage'
         onChange={handleImageChange}
         accept='image/*'
         type='file'
+        className='form-control mt-3 block text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100'
         required={true}
       />
-      <img src={formValues.bannerImage} />
+
+
+      {/* <img src={formValues.bannerImage} /> */}
+
+      {
+        formValues.bannerImage &&
+        <div className="w-full h-96 md:h-auto md:w-48">
+          <Image src={formValues.bannerImage} alt='profile image' width="100%"
+            height="100%" layout="responsive" />
+        </div>
+      }
+
 
       {loading ? (
         <Loader />
