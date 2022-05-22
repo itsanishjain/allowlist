@@ -16,10 +16,10 @@ const handler = async (req, res) => {
   const q = query(projectsRef, where("creator", "==", account));
 
   return getDocs(q)
-    .then((snapshot) => {
+    .then(async (snapshot) => {
       const data = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
-      redis.set(cacheRef, JSON.stringify(data), "EX", REDIS_CACHE_TTL);
+      await redis.set(cacheRef, JSON.stringify(data), "EX", REDIS_CACHE_TTL);
 
       return res.json(data);
     })
