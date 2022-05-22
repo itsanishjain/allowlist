@@ -10,5 +10,5 @@ export const ALCHEMY_POLYGON_MAINNET_URL = `https://polygon-mainnet.g.alchemy.co
 
 export const ALCHEMY_POLYGON_MUMBAI_URL = `https://polygon-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_POLYGON_MUMBAI_KEY}`;
 
-export const REDIS_URL = process.env.REDIS_URL;
-export const REDIS_CACHE_TTL = process.env.REDIS_CACHE_TTL;
+export const REDIS_URL = process.env.NEXT_PUBLIC_REDIS_URL;
+export const REDIS_CACHE_TTL = process.env.NEXT_PUBLIC_REDIS_CACHE_TTL;
