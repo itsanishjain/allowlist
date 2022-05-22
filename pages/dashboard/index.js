@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { UserContext } from "../../src/context/UserContext";
 import Loader from "../../src/components/Loader";
 import Dashboard from "../../src/components/Dashboard";
+import axios from "axios";
 
 const DashboardPage = () => {
   const { account, isLoggedIn } = useContext(UserContext);
@@ -17,10 +18,10 @@ const DashboardPage = () => {
     if (!isLoggedIn) return router.push("/login");
     if (!account) return;
 
-    fetch(`/api/dashboard/${account}`)
-      .then((res) => res.json())
+    axios
+      .get(`/api/dashboard/${account}`)
       .then((res) => {
-        setData(res);
+        setData(res.data);
         setIsLoading(false);
       })
       .catch((err) => console.log(err));
