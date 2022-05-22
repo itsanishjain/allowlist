@@ -10,12 +10,13 @@ import Loader from "../components/Loader";
 export const UserContext = createContext();
 
 export const UserContextProvider = ({ children }) => {
+
   const { account, activate, deactivate, chainId, library } = useWeb3React();
 
   const [isLoading, setIsLoading] = useState(true);
   const [allowlistNFT, setAllowlistNFT] = useState({
     isActivated: false,
-    hasErrors: false,
+    isChainIdWrong: false,
   });
 
   const disconnect = () => {
@@ -23,8 +24,16 @@ export const UserContextProvider = ({ children }) => {
     deactivate();
   };
 
-  const isNFTOwned = async (currentUserAccount, contractAddress) => {
+  const isNFTOwned = async (currentUserAccount, contractAddress, checkChainId = true) => {
     console.log({ chainId });
+
+
+
+    if (checkChainId && chainId !== 80001 && chainId !== 137) return {
+      isActivated: false,
+      isChainIdWrong: true,
+    }
+
 
     if (library.connection.url !== "metamask") {
       library.provider.http.connection.url = RPC_NETWORK_URLS[chainId];
@@ -44,15 +53,18 @@ export const UserContextProvider = ({ children }) => {
     console.log({ contractAddress });
     console.log({ contractCode });
 
+
+
+    // This might return true for different chains as well 
     if (contractCode === "0x") {
       console.log(`NFT Contract does not exist in this chain: ${chainId}`);
-      return { isActivated: false, hasErrors: false };
+      return { isActivated: false, isChainIdWrong: false };
     }
 
     return await contract
       .balanceOf(currentUserAccount)
-      .then((res) => ({ isActivated: parseInt(res) !== 0, hasErrors: false }))
-      .catch(() => ({ isActivated: false, hasErrors: true }));
+      .then((res) => ({ isActivated: parseInt(res) !== 0, isChainIdWrong: false }))
+      .catch(() => ({ isActivated: false, isChainIdWrong: true }));
   };
 
   useEffect(() => {

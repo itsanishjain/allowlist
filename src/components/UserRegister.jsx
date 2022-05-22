@@ -61,7 +61,8 @@ const UserRegister = ({ data }) => {
     }
 
     if (data.contractAddress) {
-      isNFTOwned(account, data.contractAddress).then((res) => {
+      // 3rd parameter checkChainId=false 
+      isNFTOwned(account, data.contractAddress, false).then((res) => {
         console.log("RESSS", res)
         setValidForRegistration((prev) => ({ ...prev, hasNFT: res }))
         setIsFunctionLoading((prev) => ({ ...prev, nftFunction: false }))

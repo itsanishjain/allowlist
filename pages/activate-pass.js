@@ -14,12 +14,12 @@ const ActivatePass = () => {
   }, [isLoggedIn, router]);
 
   return (
-    <div>
-      Activate Pass Page
+    <div className="mt-8">
+      <p className="text-xl text-center">Activate Pass</p>
       {allowlistNFT.isActivated ? (
         <p>Activated</p>
       ) : (
-        !allowlistNFT.hasErrors && <Mint />
+        !allowlistNFT.isChainIdWrong && <Mint />
       )}
     </div>
   );
