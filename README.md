@@ -97,13 +97,23 @@
 
 - Add require and checks for forms - DONE
 
-- Update the register page and check all logic are working or not -HOLD
+- Update the register page and check all logic are working or not - DONE
 
 - Alerts Notifications - DONE
 
 - Update pages with component if it is small - HOLD
 
 - Adding permission for premium services 
+    > Current Features we'll build
+      - To create more then 1 project you must have our NFT
+      - show only <= 100 users data 
+      - provide random winner for raffels you need our NFT / using VRF chainlink
+
+    > PRO
+      - user Insights data // PRO
+      - Prevent Bots &   // PRO currently filter out wallets from same IP
+        - more Robust solutions        
+
 
 - Images using Image component - DONE
 

@@ -59,14 +59,19 @@ const UserRegister = ({ data }) => {
         setIsFunctionLoading((prev) => ({ ...prev, ethFunction: false }))
       })
     }
+    else {
+      setIsFunctionLoading((prev) => ({ ...prev, ethFunction: false }))
+    }
 
     if (data.contractAddress) {
       // 3rd parameter checkChainId=false 
       isNFTOwned(account, data.contractAddress, false).then((res) => {
-        console.log("RESSS", res)
         setValidForRegistration((prev) => ({ ...prev, hasNFT: res }))
         setIsFunctionLoading((prev) => ({ ...prev, nftFunction: false }))
       })
+    }
+    else {
+      setIsFunctionLoading((prev) => ({ ...prev, nftFunction: false }))
     }
 
   }, [account]);
@@ -75,25 +80,6 @@ const UserRegister = ({ data }) => {
     <div className="max-w-lg mx-auto p-4 mt-8">
       <p className="text-md font-medium">{data.name}</p>
       <p>{data.description}</p>
-      {/* <img src={data.bannerImage} /> */}
-      {/* <img src={data.profileImage} /> */}
-
-      {/* {data.ethAmount && `Have at least ${data.ethAmount} ETH in your wallet`} */}
-
-      {/* <Wallet /> */}
-      {/* 
-      <>
-        {!isRegistered ? (
-          temp ? (
-            <button onClick={handleSubmit}>Register</button>
-          ) : (
-            "ERROR"
-          )
-        ) : (
-          "ALREADY REGISTER"
-        )}
-      </> */}
-
       <div>
         {
           isRegistered ? "Already Registered" : (
@@ -101,23 +87,26 @@ const UserRegister = ({ data }) => {
               <Wallet />
               {
                 account && (
-                  <div>
-                    {
-                      (validForRegistration.hasETH && validForRegistration.hasNFT) ? (
-                        <div className="mt-8">
-                          <button onClick={handleSubmit}>Register</button>
-                        </div>
-                      ) : (
-                        <div className="mt-8">
-                          {!validForRegistration.hasETH && `Have at least ${data.ethAmount} ETH in your wallet`}
-                          {!validForRegistration.hasNFT && `NO ${data.contractName}`}
+
+                  (!isFunctionLoading.ethFunction && !isFunctionLoading.nftFunction)
+                    ? <div>
+                      {
+
+                        (validForRegistration.hasETH && validForRegistration.hasNFT) ? (
                           <div className="mt-8">
-                            <button className="bg-gray-500 text-white font-bold py-2 px-4 rounded opacity-50 cursor-not-allowed">Register</button>
+                            <button onClick={handleSubmit}>Register</button>
                           </div>
-                        </div>
-                      )
-                    }
-                  </div>
+                        ) : (
+                          <div className="mt-8">
+                            {!validForRegistration.hasETH && `Have at least ${data.ethAmount} ETH in your wallet`}
+                            {!validForRegistration.hasNFT && `NO ${data.contractName}`}
+                            <div className="mt-8">
+                              <button className="bg-gray-500 text-white font-bold py-2 px-4 rounded opacity-50 cursor-not-allowed">Register</button>
+                            </div>
+                          </div>
+                        )
+                      }
+                    </div> : <Loader />
                 )
               }
             </>
