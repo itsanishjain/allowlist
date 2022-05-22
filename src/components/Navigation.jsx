@@ -36,12 +36,12 @@ const Navigation = () => {
   }, [toggle]);
 
   return (
-    <nav ref={navRef} className='bg-white w-full top-0 z-20'>
+    <nav ref={navRef} className='bg-gray-100 w-full top-0 z-20 text-md font-medium'>
       <div className='items-center px-4 max-w-screen-xl mx-auto lg:flex lg:px-8'>
         <div className='flex items-center justify-between py-3 lg:py-4 lg:block'>
           <Link href='/'>
             <a className='mx-auto text-xl font-black leading-none text-gray-900 select-none'>
-              Home<span className='text-orange-500'>.</span>
+              Allowlist
             </a>
           </Link>
           <div className='lg:hidden'>
@@ -99,11 +99,13 @@ const Navigation = () => {
             <div>
               <ul className='flex flex-col-reverse space-x-0 lg:space-x-6 lg:flex-row'>
                 <li className='mt-8 lg:mt-0 mb-8 lg:mb-0'>
-                  <button
-                    className='py-3 px-4 text-center text-white bg-orange-500 hover:bg-orange-700 rounded-md shadow block lg:inline'
-                    onClick={disconnect}>
-                    Disconnect
-                  </button>
+                  <Link href='/login'>
+                    <a
+                      className='py-3 px-4 text-center text-white bg-orange-500 hover:bg-orange-700 rounded-md shadow block lg:inline'
+                      onClick={disconnect}>
+                      Disconnect
+                    </a>
+                  </Link>
                 </li>
               </ul>
             </div>
