@@ -4,6 +4,8 @@ import { getDoc, doc } from "firebase/firestore";
 
 import { db } from "../../../src/utils/firebase";
 import { UserContext } from "../../../src/context/UserContext";
+import { REDIS_CACHE_TTL } from "../../../src/utils/constants";
+import redis from "../../../src/utils/redis";
 import ProjectInfo from "../../../src/components/ProjectInfo";
 import RegisterUserList from "../../../src/components/RegisterUserList";
 import WalletRequirement from "../../../src/components/WalletRequirement";
@@ -67,10 +69,18 @@ const Settings = ({ data }) => {
 };
 
 export const getServerSideProps = async (ctx) => {
+  const { id } = ctx.params;
+  const cacheRef = `project:${id}`;
+  const cachedData = await redis.get(`project:${id}`);
+  if (cachedData) return { props: { data: JSON.parse(cachedData) } };
+
   let data = {};
 
-  await getDoc(doc(db, "projects", ctx.params.id))
-    .then((res) => (data = { id: res.id, ...res.data() }))
+  await getDoc(doc(db, "projects", id))
+    .then(async (res) => {
+      data = { id: res.id, ...res.data() };
+      await redis.set(cacheRef, JSON.stringify(data), "EX", REDIS_CACHE_TTL);
+    })
     .catch((err) => console.log(err));
 
   return { props: { data } };

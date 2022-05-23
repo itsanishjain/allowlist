@@ -2,7 +2,8 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { updateDoc, doc } from "firebase/firestore";
-import toast from 'react-hot-toast';
+import axios from "axios";
+import toast from "react-hot-toast";
 
 import { db } from "../utils/firebase";
 import { uploadFile } from "../utils/helpers";
@@ -77,12 +78,13 @@ const ProjectInfo = ({ data }) => {
 
     await updateDoc(doc(db, "projects", data.id), updatedProject)
       .then(() => {
-        setProject(updatedProject)
-        toast.success('Project Updated Successfully')
+        setProject(updatedProject);
+        toast.success("Project Updated Successfully");
+        axios.post("/api/project/update", updatedProject);
       })
       .catch((err) => {
-        console.log(err)
-        toast.error('Error :(')
+        console.log(err);
+        toast.error("Error :(");
       });
 
     setLoading(false);
@@ -123,14 +125,18 @@ const ProjectInfo = ({ data }) => {
             onChange={handleImageChange}
             className='form-control mt-3 block text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100'
           />
-        
-          {
-            project.profileImage &&
-            <div className="w-full h-96 md:h-auto md:w-48">
-              <Image src={project.profileImage} alt='profile image' width="100%"
-                height="100%" layout="responsive" />
+
+          {project.profileImage && (
+            <div className='w-full h-96 md:h-auto md:w-48'>
+              <Image
+                src={project.profileImage}
+                alt='profile image'
+                width='100%'
+                height='100%'
+                layout='responsive'
+              />
             </div>
-          }
+          )}
 
           <input
             type='file'
@@ -139,15 +145,18 @@ const ProjectInfo = ({ data }) => {
             onChange={handleImageChange}
             className='form-control block text-sm mt-[-36px] text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100'
           />
-          
 
-          {
-            project.bannerImage &&
-            <div className="w-full h-96 md:h-auto md:w-48">
-              <Image src={project.bannerImage} alt='profile image' width="100%"
-                height="100%" layout="responsive" />
+          {project.bannerImage && (
+            <div className='w-full h-96 md:h-auto md:w-48'>
+              <Image
+                src={project.bannerImage}
+                alt='profile image'
+                width='100%'
+                height='100%'
+                layout='responsive'
+              />
             </div>
-          }
+          )}
 
           <Input
             name='link'
@@ -182,7 +191,7 @@ const ProjectInfo = ({ data }) => {
               <path
                 // fill-rule="evenodd"
                 d='M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z'
-              // clip-rule="evenodd"
+                // clip-rule="evenodd"
               ></path>
             </svg>
             <input
@@ -221,11 +230,7 @@ const ProjectInfo = ({ data }) => {
             onChange={handleChange}
           />
 
-          {loading ?
-            <Loader />
-            :
-            <button>Save</button>
-          }
+          {loading ? <Loader /> : <button>Save</button>}
         </form>
       </div>
     </div>
