@@ -113,17 +113,19 @@ const Navigation = () => {
               </ul>
             </div>
           )}
-          <div className='flex-1'>
-            <ul className='justify-center items-center space-y-8 lg:flex lg:space-x-6 lg:space-y-0'>
-              {navigation.map((item, idx) => (
-                <li key={idx} className='text-gray-600 hover:text-orange-600'>
-                  <Link href={item.path}>
-                    <a onClick={handleToggle}>{item.title}</a>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {isLoggedIn && (
+            <div className='flex-1'>
+              <ul className='justify-center items-center space-y-8 lg:flex lg:space-x-6 lg:space-y-0'>
+                {navigation.map((item, idx) => (
+                  <li key={idx} className='text-gray-600 hover:text-orange-600'>
+                    <Link href={item.path}>
+                      <a onClick={handleToggle}>{item.title}</a>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </nav>
