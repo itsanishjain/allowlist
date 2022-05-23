@@ -1,7 +1,9 @@
 import { useEffect, useState, useContext } from "react";
+import Image from "next/image";
 import { useRouter } from "next/router";
-import { Contract, providers, utils } from "ethers";
+import { providers, utils } from "ethers";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+
 
 import { db } from "../utils/firebase";
 import { UserContext } from "../context/UserContext";
@@ -77,9 +79,14 @@ const UserRegister = ({ data }) => {
   }, [account]);
 
   return (
-    <div className="max-w-lg mx-auto p-4 mt-8">
+    <div className="max-w-lg mx-auto p-4 mt-8 bg-gray-100 space-y-8">
       <p className="text-md font-medium">{data.name}</p>
-      <p>{data.description}</p>
+      <p className="text-sm font-normal">{data.description}</p>
+
+      <div className="w-full h-96 md:h-auto md:w-48">
+        <Image src={data.profileImage} alt='hero image' width="100%"
+          height="100%" layout="responsive" />
+      </div>
       <div>
         {
           isRegistered ? "Already Registered" : (

@@ -102,7 +102,7 @@ const Form = () => {
 
   return (
     <form
-      className='flex flex-col max-w-xl mx-auto mt-4 space-y-4 p-2'
+      className='flex flex-col max-w-2xl mx-auto mt-4 space-y-8 p-4 bg-gray-50 shadow-md rounded-md'
       onSubmit={handleSubmit}>
       <Input
         inputTagType='smallInput'
