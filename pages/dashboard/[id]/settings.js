@@ -69,7 +69,7 @@ const Settings = ({ data }) => {
 
 export const getServerSideProps = async (ctx) => {
   const { id } = ctx.params;
-  const isRedisWorking = true;
+  var isRedisWorking = true;
 
   const cacheRef = `project:${id}`;
 
