@@ -1,5 +1,5 @@
 import Redis from "ioredis";
-import { REDIS_URL } from "./constants";
+import { REDIS_CACHE_TTL, REDIS_URL } from "./constants";
 
 const redis = new Redis(REDIS_URL);
 
@@ -10,4 +10,7 @@ redis.on("error", (err) => {
   redis.disconnect();
 });
 
-export default redis;
+const setKey = async (key, value) =>
+  await redis.set(key, JSON.stringify(value), "EX", REDIS_CACHE_TTL);
+
+export { redis, setKey };

@@ -4,8 +4,7 @@ import { getDoc, doc } from "firebase/firestore";
 
 import { db } from "../../../src/utils/firebase";
 import { UserContext } from "../../../src/context/UserContext";
-import { REDIS_CACHE_TTL } from "../../../src/utils/constants";
-import redis from "../../../src/utils/redis";
+import { redis, setKey } from "../../../src/utils/redis";
 import ProjectInfo from "../../../src/components/ProjectInfo";
 import RegisterUserList from "../../../src/components/RegisterUserList";
 import WalletRequirement from "../../../src/components/WalletRequirement";
@@ -70,18 +69,25 @@ const Settings = ({ data }) => {
 
 export const getServerSideProps = async (ctx) => {
   const { id } = ctx.params;
+  const isRedisWorking = true;
+
   const cacheRef = `project:${id}`;
-  const cachedData = await redis.get(`project:${id}`);
-  if (cachedData) return { props: { data: JSON.parse(cachedData) } };
+
+  const cachedData = await redis
+    .get(`project:${id}`)
+    .then((res) => JSON.parse(res))
+    .catch(() => (isRedisWorking = false));
+
+  if (isRedisWorking && cachedData) return { props: { data: cachedData } };
 
   let data = {};
 
   await getDoc(doc(db, "projects", id))
     .then(async (res) => {
       data = { id: res.id, ...res.data() };
-      await redis.set(cacheRef, JSON.stringify(data), "EX", REDIS_CACHE_TTL);
+      if (isRedisWorking) await setKey(cacheRef, data);
     })
-    .catch((err) => console.log(err));
+    .catch((err) => err);
 
   return { props: { data } };
 };
