@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import Image from "next/image";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
+import axios from "axios";
 
 import { useRouter } from "next/router";
 import { doc, setDoc, collection } from "firebase/firestore";
@@ -86,13 +87,11 @@ const Form = () => {
       bannerImage: image2,
     })
       .then(() => {
-        toast.success("Project Created Successfully")
-        router.push(`/dashboard/${docID}/settings`)
+        axios.post(`/api/project/create`, { account });
+        toast.success("Project Created Successfully");
+        router.push(`/dashboard/${docID}/settings`);
       })
-      .catch((error) => {
-
-        toast.error("Error :(")
-      });
+      .catch((error) => toast.error("Error :("));
 
     setLoading(false);
   };
@@ -134,17 +133,17 @@ const Form = () => {
         required={true}
       />
 
-
-      {
-        formValues.profileImage &&
-        <div className="w-full h-96 md:h-auto md:w-48">
-          <Image src={formValues.profileImage} alt='profile image' width="100%"
-            height="100%" layout="responsive" />
+      {formValues.profileImage && (
+        <div className='w-full h-96 md:h-auto md:w-48'>
+          <Image
+            src={formValues.profileImage}
+            alt='profile image'
+            width='100%'
+            height='100%'
+            layout='responsive'
+          />
         </div>
-      }
-
-
-
+      )}
 
       <p>Banner Image</p>
 
@@ -156,20 +155,19 @@ const Form = () => {
         className='form-control mt-3 block text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100'
         required={true}
       />
-      {
-        formValues.bannerImage &&
-        <div className="w-full h-96 md:h-auto md:w-48">
-          <Image src={formValues.bannerImage} alt='profile image' width="100%"
-            height="100%" layout="responsive" />
+      {formValues.bannerImage && (
+        <div className='w-full h-96 md:h-auto md:w-48'>
+          <Image
+            src={formValues.bannerImage}
+            alt='profile image'
+            width='100%'
+            height='100%'
+            layout='responsive'
+          />
         </div>
-      }
-
-
-      {loading ? (
-        <Loader />
-      ) : (
-        <button>Create</button>
       )}
+
+      {loading ? <Loader /> : <button>Create</button>}
     </form>
   );
 };
