@@ -4,8 +4,8 @@ import { db } from "../src/utils/firebase";
 import UserRegister from "../src/components/UserRegister";
 
 const UserRegisterPage = ({ data }) => (
-  <div >
-    <p className="mt-2 text-2xl text-center text-black ">Allowlist</p>
+  <div>
+    <p className='mt-2 text-2xl text-center text-black '>Allowlist</p>
     <UserRegister data={data} />
   </div>
 );

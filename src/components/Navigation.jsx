@@ -36,7 +36,9 @@ const Navigation = () => {
   }, [toggle]);
 
   return (
-    <nav ref={navRef} className='bg-gray-100 w-full top-0 z-20 text-md font-medium'>
+    <nav
+      ref={navRef}
+      className='bg-gray-100 w-full top-0 z-20 text-md font-medium'>
       <div className='items-center px-4 max-w-screen-xl mx-auto lg:flex lg:px-8'>
         <div className='flex items-center justify-between py-3 lg:py-4 lg:block'>
           <Link href='/'>
@@ -79,8 +81,9 @@ const Navigation = () => {
           </div>
         </div>
         <div
-          className={`flex-1 justify-between flex-row-reverse lg:overflow-visible lg:flex lg:pb-0 lg:pr-0 lg:h-auto ${toggle ? "h-screen pb-20 overflow-auto pr-4" : "hidden"
-            }`}>
+          className={`flex-1 justify-between flex-row-reverse lg:overflow-visible lg:flex lg:pb-0 lg:pr-0 lg:h-auto ${
+            toggle ? "h-screen pb-20 overflow-auto pr-4" : "hidden"
+          }`}>
           {!isLoggedIn ? (
             <div>
               <ul className='flex flex-col-reverse space-x-0 lg:space-x-6 lg:flex-row'>

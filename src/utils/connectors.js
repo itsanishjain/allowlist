@@ -6,7 +6,7 @@ import {
   INFURA_ROPSTEN_URL,
   INFURA_RINKEBY_URL,
   ALCHEMY_POLYGON_MAINNET_URL,
-  ALCHEMY_POLYGON_MUMBAI_URL
+  ALCHEMY_POLYGON_MUMBAI_URL,
 } from "./constants";
 
 const injected = new InjectedConnector({
@@ -20,9 +20,7 @@ export const RPC_NETWORK_URLS = {
   3: INFURA_ROPSTEN_URL,
   4: INFURA_RINKEBY_URL,
   137: ALCHEMY_POLYGON_MAINNET_URL,
-  80001: ALCHEMY_POLYGON_MUMBAI_URL
-
-
+  80001: ALCHEMY_POLYGON_MUMBAI_URL,
 };
 
 const walletConnect = new WalletConnectConnector({

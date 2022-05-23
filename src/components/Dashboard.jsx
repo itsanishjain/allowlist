@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import Image from 'next/image';
+import Image from "next/image";
 
 const Dashboard = ({ data }) => (
   <div className='m-8 mx-auto max-w-xl px-2'>
@@ -8,11 +8,15 @@ const Dashboard = ({ data }) => (
       <a
         className='flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 
         dark:hover:bg-gray-700'>
-
         {/* GOLDEN CODE */}
-        <div className="w-full h-96 md:h-auto md:w-48">
-          <Image src={data.profileImage} alt='hero image' width="100%"
-            height="100%" layout="responsive" />
+        <div className='w-full h-96 md:h-auto md:w-48'>
+          <Image
+            src={data.profileImage}
+            alt='hero image'
+            width='100%'
+            height='100%'
+            layout='responsive'
+          />
         </div>
 
         <div className='flex flex-col justify-between p-4 leading-normal'>
