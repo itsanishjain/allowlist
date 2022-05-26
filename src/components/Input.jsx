@@ -14,12 +14,13 @@ const Input = ({
   onChange,
   value,
   name,
+  type = 'text',
   required = false,
 }) => (
   <div>
     {inputTagType === "smallInput" ? (
       <input
-        type='text'
+        type={type}
         className={inputTagClasses[inputTagType]}
         placeholder={placeholder}
         name={name}
