@@ -1,9 +1,17 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useRouter } from "next/router";
+import { UserContext } from "../context/UserContext";
 
 import Input from "../components/Input";
+import toast from "react-hot-toast";
 
 const RegisterUserList = ({ users, projectId }) => {
+  const { allowlistNFT } = useContext(UserContext);
+
+
+
+
+
   const [winners, setWinners] = useState([]);
   const [winnersCount, setWinnersCount] = useState(1);
 
@@ -21,6 +29,10 @@ const RegisterUserList = ({ users, projectId }) => {
 
   // CSV file
   const toCsv = () => {
+    if (!allowlistNFT.isActivated) {
+      toast.error("Please activate your Allowlist NFT");
+      return
+    }
     var csv_file, download_link;
     csv_file = new Blob([[...winners].join("\n")], { type: "text/csv" });
     download_link = document.createElement("a");
@@ -44,7 +56,7 @@ const RegisterUserList = ({ users, projectId }) => {
       />
       <button onClick={selectRandomWinners}>Select Random Winners</button>
       {
-        winners.length !== 0 && <button onClick={toCsv}>Download CSV</button>
+        winners.length !== 0 && <button className="ml-4" onClick={toCsv}>Download CSV</button>
       }
       <div className='mt-8'>
         {winners.map((winner, i) => (
@@ -53,12 +65,12 @@ const RegisterUserList = ({ users, projectId }) => {
           </p>
         ))}
       </div>
-      <div className='p-4 bg-gray-100 shadow-sm rounded-md  font-mono'>
+      <div className='py-4 px-1 bg-gray-100 shadow-sm rounded-md  font-mono'>
         {users?.map((user, index) => (
           <div key={index}>
-            <p className='flex items-center'>
-              {/* <span className='text-md'>{index + 1}.</span> */}
-              <span className='text-md'>{user}</span>
+            <p className='flex items-center justify-between'>
+              <span className='text-sm md:text-md'>{index + 1}-</span>
+              <span className='text-sm md:text-md'>{user}</span>
             </p>
           </div>
         ))}
