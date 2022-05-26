@@ -30,7 +30,7 @@ const Settings = ({ data }) => {
     const tabClassName = {
       active:
         "text-center block border border-orange-500 rounded py-2 px-4 bg-orange-500 hover:bg-orange-700 text-white",
-      inactive: "text-center text-black block rounded py-2 px-4 text-white",
+      inactive: "text-center text-black block rounded py-2 px-4",
     };
 
     return tabName === activeTab ? tabClassName.active : tabClassName.inactive;
@@ -45,19 +45,19 @@ const Settings = ({ data }) => {
       <ul className='flex mb-8 max-w-3xl mx-auto '>
         <li
           onClick={() => setActiveTab("projectInfo")}
-          className='flex-1 mr-2  cursor-pointer'>
+          className='flex-1 mr-2  cursor-pointer text-black'>
           <a className={getClassNames("projectInfo")}>Project Info</a>
         </li>
         <li
           onClick={() => setActiveTab("walletRequirement")}
-          className='flex-1 mr-2  cursor-pointer'>
+          className='flex-1 mr-2  cursor-pointer text-black'>
           <a className={getClassNames("walletRequirement")}>
             Wallet Requirements
           </a>
         </li>
         <li
           onClick={() => setActiveTab("registerUserList")}
-          className='flex-1 mr-2 cursor-pointer'>
+          className='flex-1 mr-2 cursor-pointer text-black'>
           <a className={getClassNames("registerUserList")}>Registered Users</a>
         </li>
       </ul>
