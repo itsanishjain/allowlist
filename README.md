@@ -106,7 +106,7 @@
 - Adding permission for premium services 
     > Current Features we'll build
       - To create more then 1 project you must have our NFT
-      - show only <= 100 users data 
+      - show only <= 100 register users data 
       - provide random winner for raffels you need our NFT
 
     > PRO
