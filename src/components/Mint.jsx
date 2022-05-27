@@ -28,9 +28,7 @@ const Mint = () => {
       web3Provider.getSigner()
     );
 
-    const tx = await contract.mint(1, {
-      value: utils.parseEther("0"),
-    });
+    const tx = await contract.mint({ value: utils.parseEther("10") });
 
     await tx
       .wait()

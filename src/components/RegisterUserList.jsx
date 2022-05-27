@@ -5,19 +5,12 @@ import { UserContext } from "../context/UserContext";
 import Input from "../components/Input";
 import toast from "react-hot-toast";
 
-const RegisterUserList = ({ users, projectId }) => {
+const RegisterUserList = ({ users }) => {
   const { allowlistNFT } = useContext(UserContext);
-
-
-
-
 
   const [winners, setWinners] = useState([]);
   const [winnersCount, setWinnersCount] = useState(1);
-
   const router = useRouter();
-
-
 
   const selectRandomWinners = () => {
     // Return the indexes of an array
