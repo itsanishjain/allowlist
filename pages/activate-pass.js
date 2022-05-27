@@ -17,21 +17,15 @@ const ActivatePass = () => {
   }, [isLoggedIn, router]);
 
   return (
-    <div className='mt-8'>
-      <div className='max-w-md mx-auto'>
-        <div className='w-full h-96 md:h-[1rem] md:w-[5rem]'>
-          <Image
-            src={allowlistNFTImage}
-            alt='hero image'
-            width='100%'
-            height='100%'
-            layout='responsive'
-          />
+    <div className='mt-8 max-w-3xl mx-auto flex flex-col items-center space-y-4'>
+      <p className='text-xl text-center'>Activate Pass</p>
+      <div className='w-full md:w-1/2 p-1'>
+        <div className='w-full h-auto overflow-hidden object-cover'>
+          <Image src={allowlistNFTImage} alt='hero image' />
         </div>
       </div>
-      <p className='text-xl text-center'>Activate Pass</p>
       {allowlistNFT.isActivated ? (
-        <p>Activated</p>
+        <p className="font-mono text-xl text-green-400">Activated</p>
       ) : (
         !allowlistNFT.isChainIdWrong && <Mint />
       )}
