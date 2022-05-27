@@ -16,7 +16,6 @@ const Mint = () => {
     setMinting(true);
 
     if (library.connection.url !== "metamask") {
-      console.log({ chainId });
       library.provider.http.connection.url = RPC_NETWORK_URLS[chainId];
     }
 
@@ -46,7 +45,7 @@ const Mint = () => {
   };
 
   return (
-    <div className='mt-8 p-4 max-w-md mx-auto shadow-md rounded-sm bg-gray-200'>
+    <div className='mt-8 w-full p-4 shadow-md rounded-sm bg-gray-200'>
       {!minting ? <button onClick={mintNFT}>Mint</button> : "Minting......."}
     </div>
   );

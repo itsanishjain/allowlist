@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { UserContext } from "../context/UserContext";
 
+import logo from '../images/logo.png'
 const Navigation = () => {
   const { isLoggedIn, disconnect } = useContext(UserContext);
 
@@ -44,8 +45,9 @@ const Navigation = () => {
       <div className='items-center px-4 max-w-screen-xl mx-auto lg:flex lg:px-8'>
         <div className='flex items-center justify-between py-3 lg:py-4 lg:block'>
           <Link href='/'>
-            <a className='mx-auto text-xl font-black leading-none text-gray-900 select-none'>
-              Allowlist
+            <a className='mx-auto text-xl font-black leading-none text-gray-900 select-none flex'>
+
+              <span>Allowlist</span>
             </a>
           </Link>
           <div className='lg:hidden'>
