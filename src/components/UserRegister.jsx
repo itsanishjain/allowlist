@@ -47,10 +47,10 @@ const UserRegister = ({ data }) => {
     })
       .then(() => {
         setIsRegistered(true);
-        axios.post("/api/project/update", {
-          ...data,
-          users: [...data.users, account],
-        });
+        // axios.post("/api/project/update", {
+        //   ...data,
+        //   users: [...data.users, account],
+        // });
       })
       .catch((err) => console.log(err));
 
