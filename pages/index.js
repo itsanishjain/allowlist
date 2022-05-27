@@ -7,9 +7,23 @@ import robot from "../src/images/robot.png";
 import avtar1 from "../src/images/anish-bhai.png";
 import avtar2 from "../src/images/ayush-bhai.jpg";
 import Link from "next/link";
+import Head from "next/head";
 
 const App = () => (
   <div>
+    <Head>
+      <title>Allowlist</title>
+      <meta property="og:title" content="Allowlist" />
+      <meta property="og:description" content="A tool that allows creator to get whitelisting for their upcoming project" />
+      <meta property="og:type" content="website" />
+      <meta property="og:image" content="/AllowlistNFT.png" />
+      <meta property="og:url" content="https://www.allowlist.live/" />
+      <meta property="twitter:card" content="summary_large_image" />
+      <meta property="twitter:url" content="https://www.allowlist.live/" />
+      <meta property="twitter:title" content="Allowlist" />
+      <meta property="twitter:description" content="A tool that allows creator to get whitelisting for their upcoming project" />
+      <meta property="twitter:image" content="https://user-images.githubusercontent.com/43033153/170790079-c6f3b36c-21c4-4de7-9ab9-fd69f8b0d16a.png" />
+    </Head>
     <section className='px-2 py-20 bg-white md:px-0'>
       <div className='container items-center max-w-6xl px-8 mx-auto xl:px-5'>
         <div className='flex flex-wrap items-center sm:-mx-3'>
