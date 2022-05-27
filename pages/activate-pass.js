@@ -25,9 +25,11 @@ const ActivatePass = () => {
         </div>
       </div>
       {allowlistNFT.isActivated ? (
-        <p className="font-mono text-xl text-green-400">Activated</p>
+        <p className='font-mono text-xl text-green-400'>Activated</p>
+      ) : !allowlistNFT.isChainIdWrong ? (
+        <Mint />
       ) : (
-        !allowlistNFT.isChainIdWrong && <Mint />
+        <p>Please connect to Polygon Mainnet</p>
       )}
     </div>
   );
