@@ -1,10 +1,10 @@
 import React from "react";
 import Image from "next/image";
 
-import hero from "../src/images/AllowlistFinalNFT.jpg";
-import astronaut from "../src/images/astronaut.jpg";
-import robot from "../src/images/robot.jpg";
-import avtar1 from "../src/images/anish-bhai.jpg";
+import hero from "../src/images/AllowlistFinalNFT.png";
+import astronaut from "../src/images/astronaut.png";
+import robot from "../src/images/robot.png";
+import avtar1 from "../src/images/anish-bhai.png";
 import avtar2 from "../src/images/ayush-bhai.jpg";
 import Link from "next/link";
 import Head from "next/head";
@@ -23,6 +23,7 @@ const App = () => (
       <meta property="twitter:title" content="Allowlist" />
       <meta property="twitter:description" content="A tool that allows creator to get whitelisting for their upcoming project" />
       <meta property="twitter:image" content="https://user-images.githubusercontent.com/43033153/170791310-c476115b-4073-48c5-8240-b31a99894648.jpg" />
+
     </Head>
     <section className='px-2 py-20 bg-white md:px-0'>
       <div className='container items-center max-w-6xl px-8 mx-auto xl:px-5'>
