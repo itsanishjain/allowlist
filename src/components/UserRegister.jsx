@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import Image from "next/image";
+import axios from "axios";
 import { useRouter } from "next/router";
 import { providers, utils } from "ethers";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
@@ -35,9 +36,6 @@ const UserRegister = ({ data }) => {
     const web3Provider = new providers.Web3Provider(provider);
     let balance = await web3Provider.getBalance(account);
 
-    console.log(parseFloat(data.ethAmount));
-    console.log(parseFloat(utils.formatEther(balance)));
-
     return parseFloat(data.ethAmount) <= parseFloat(utils.formatEther(balance));
   };
 
@@ -47,7 +45,13 @@ const UserRegister = ({ data }) => {
     await updateDoc(doc(db, "projects", router.query.id), {
       users: arrayUnion(account),
     })
-      .then(() => setIsRegistered(true))
+      .then(() => {
+        setIsRegistered(true);
+        axios.post("/api/project/update", {
+          ...data,
+          users: [...data.users, account],
+        });
+      })
       .catch((err) => console.log(err));
 
     setLoading(false);
