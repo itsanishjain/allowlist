@@ -24,9 +24,7 @@ const App = () => (
               </p>
               <div className='relative flex flex-col sm:flex-row sm:space-x-4'>
                 <Link href='/activate-pass' passHref>
-                  <a
-
-                    className='flex items-center w-full px-6 py-3 mb-3 text-lg text-white bg-orange-500 rounded-md sm:mb-0 hover:bg-orange-700 sm:w-auto'>
+                  <a className='flex items-center w-full px-6 py-3 mb-3 text-lg text-white bg-orange-500 rounded-md sm:mb-0 hover:bg-orange-700 sm:w-auto'>
                     Buy Our NFT
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
@@ -73,35 +71,40 @@ const App = () => (
 
         <div className='box-border order-first w-full text-black border-solid md:w-1/2 md:pl-10 md:order-none'>
           <h2 className='m-0 text-xl font-semibold leading-tight border-0 border-gray-300 lg:text-3xl md:text-2xl'>
-            Boost Productivity
+            Roadmap
           </h2>
           <p className='pt-4 pb-8 m-0 leading-7 text-gray-700 border-0 border-gray-300 sm:pr-12 xl:pr-32 lg:text-lg'>
-            Build an atmosphere that creates productivity in your organization
-            and your company culture.
+            We&apos;re going to create a slew of tools to assist
+            creators/artists in obtaining the finest possible allowlist for
+            their projects.
           </p>
-          <ul className='p-0 m-0 leading-6 border-0 border-gray-300'>
-            <li className='box-border relative py-1 pl-0 text-left text-gray-500 border-solid'>
+          <ul className='p-0 m-0 leading-6 border-0 border-gray-300 space-y-2'>
+            <li className='box-border relative py-1 pl-0 text-left text-gray-500 border-solid flex'>
               <span className='inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-orange-500 rounded-full'>
                 <span className='text-sm font-bold'>✓</span>
               </span>
-              Maximize productivity and growth
+              Using Twitter and Discord to authorize
+              <br />
+              projects so that users can&apos;t spam their allowlist
             </li>
-            <li className='box-border relative py-1 pl-0 text-left text-gray-500 border-solid'>
+            <li className='box-border relative py-1 pl-0 text-left text-gray-500 border-solid flex'>
               <span className='inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-orange-500 rounded-full'>
                 <span className='text-sm font-bold'>✓</span>
               </span>
-              Speed past your competition
+              Filtering users with multiple accounts automatically
+              <br />
+              by keeping track of their transaction activities
             </li>
-            <li className='box-border relative py-1 pl-0 text-left text-gray-500 border-solid'>
+            <li className='box-border relative py-1 pl-0 text-left text-gray-500 border-solid flex'>
               <span className='inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-orange-500 rounded-full'>
                 <span className='text-sm font-bold'>✓</span>
               </span>
-              Learn the top techniques
+              Adding support for multiple wallets to the login process
             </li>
           </ul>
         </div>
       </div>
-      <div className='box-border flex flex-col items-center content-center px-8 mx-auto mt-2 leading-6 text-black border-0 border-gray-300 border-solid md:mt-20 xl:mt-0 md:flex-row max-w-7xl lg:px-16'>
+      {/* <div className='box-border flex flex-col items-center content-center px-8 mx-auto mt-2 leading-6 text-black border-0 border-gray-300 border-solid md:mt-20 xl:mt-0 md:flex-row max-w-7xl lg:px-16'>
         <div className='box-border w-full text-black border-solid md:w-1/2 md:pl-6 xl:pl-32'>
           <h2 className='m-0 text-xl font-semibold leading-tight border-0 border-gray-300 lg:text-3xl md:text-2xl'>
             Automated Tasks
@@ -140,7 +143,7 @@ const App = () => (
             alt='image'
           />
         </div>
-      </div>
+      </div> */}
     </section>
     <section className='w-full py-12 bg-white lg:py-24 '>
       <div className='max-w-6xl px-12 mx-auto text-center'>
@@ -168,9 +171,7 @@ const App = () => (
               <p className='font-medium text-blue-500'>
                 Backend Dev and Founder
               </p>
-              <p className='text-gray-400'>
-                Believes in learning and building
-              </p>
+              <p className='text-gray-400'>Believes in learning and building</p>
             </div>
 
             <div className='flex border-t border-gray-200 divide-x divide-gray-200'>

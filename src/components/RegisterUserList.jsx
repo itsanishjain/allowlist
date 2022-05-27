@@ -65,11 +65,11 @@ const RegisterUserList = ({ users, projectId }) => {
           </p>
         ))}
       </div>
-      <div className='py-4 px-1 bg-gray-100 shadow-sm rounded-md  font-mono'>
+      <div className='p-4 bg-gray-100 shadow-sm rounded-md  font-mono'>
         {users?.map((user, index) => (
           <div key={index}>
             <p className='flex items-center justify-between'>
-              <span className='text-sm md:text-md'>{index + 1}-</span>
+              <span className='text-sm md:text-md'>{index + 1}.</span>
               <span className='text-sm md:text-md'>{user}</span>
             </p>
           </div>
