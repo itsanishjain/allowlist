@@ -1,25 +1,22 @@
 // SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.8.4;
 
-// IPFS:  ipfs://QmYqt8FCxQzV29Ytaz8qNYQLe5pyVguvfEFLStepEJnUY9/
-
-pragma solidity >=0.7.0 <0.9.0;
-
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/ERC721.sol";
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol";
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract Allowlist is ERC721, Ownable {
     using Strings for uint256;
     using Counters for Counters.Counter;
     Counters.Counter private supply;
     string public uriPrefix = "";
-    string public uriSuffix = ".json";
-    uint256 public cost = 0 ether;
-    uint256 public maxSupply = 3333;
-    uint256 public maxMintAmountPerTx = 5;
+    string public constant uriSuffix = ".json";
+    uint256 public cost = 1 ether;
+    uint256 public constant maxSupply = 10000;
+    uint256 public maxMintAmountPerTx = 1;
     bool public paused = false;
 
-    constructor(string memory _uriPrefix) ERC721("Allowlist", "ALL") {
+    constructor(string memory _uriPrefix) ERC721("Allowlist", "AWL") {
         setUriPrefix(_uriPrefix);
     }
 
@@ -45,7 +42,9 @@ contract Allowlist is ERC721, Ownable {
         mintCompliance(_mintAmount)
     {
         require(!paused, "Paused");
-        require(msg.value >= cost * _mintAmount, "Insuf fund");
+        if (msg.sender != owner()) {
+            require(msg.value >= cost * _mintAmount, "Insufficient fund");
+        }
         _mintLoop(msg.sender, _mintAmount);
     }
 
@@ -84,16 +83,7 @@ contract Allowlist is ERC721, Ownable {
     {
         require(_exists(_tokenId), "Invalid id");
         string memory currentBaseURI = _baseURI();
-        return
-            bytes(currentBaseURI).length > 0
-                ? string(
-                    abi.encodePacked(
-                        currentBaseURI,
-                        _tokenId.toString()
-                        // uriSuffix
-                    )
-                )
-                : "";
+        return bytes(currentBaseURI).length > 0 ? currentBaseURI : "";
     }
 
     function mintForAddress(uint256 _mintAmount, address _receiver)
@@ -108,15 +98,19 @@ contract Allowlist is ERC721, Ownable {
         uriPrefix = _uriPrefix;
     }
 
-    function send() public onlyOwner {
+    function withdraw() public onlyOwner {
         (bool hs, ) = payable(owner()).call{value: address(this).balance}("");
         require(hs, "err");
+    }
+
+    function updateMintingCost(uint _cost) public onlyOwner {
+        cost = _cost;
     }
 
     function _mintLoop(address _receiver, uint256 _mintAmount) internal {
         for (uint256 i = 0; i < _mintAmount; i++) {
             supply.increment();
-            _safeMint(_receiver, supply.current());
+            _mint(_receiver, supply.current());
         }
     }
 
