@@ -30,7 +30,8 @@ export const UserContextProvider = ({ children }) => {
   ) => {
     console.log({ chainId });
 
-    if (checkChainId && chainId !== 80001 && chainId !== 137)
+    // if (checkChainId && chainId !== 80001 && chainId !== 137)
+    if (checkChainId && chainId !== 137)
       return {
         isActivated: false,
         isChainIdWrong: true,
