@@ -1,77 +1,28 @@
+// https://polygonscan.com/address/0x7dfE584536C439DaE59198Ac13691Eabf06B35fd#code
+
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract Allowlist is ERC721, Ownable {
-    using Strings for uint256;
-    using Counters for Counters.Counter;
-    Counters.Counter private supply;
-    string public uriPrefix = "";
-    string public constant uriSuffix = ".json";
-    uint256 public cost = 1 ether;
+    string public uriPrefix =
+        "ipfs://bafkreidxw7o6evxxp6pfzdtreyuyai2at6ikmiaauwknmr2t5smfrifumy";
+
+    uint256 public supply = 0;
+    uint256 public cost = 10 ether;
     uint256 public constant maxSupply = 10000;
-    uint256 public maxMintAmountPerTx = 1;
-    bool public paused = false;
 
-    constructor(string memory _uriPrefix) ERC721("Allowlist", "AWL") {
-        setUriPrefix(_uriPrefix);
-    }
+    constructor() ERC721("Allowlist", "AWL") {}
 
-    modifier mintCompliance(uint256 _mintAmount) {
-        require(
-            _mintAmount > 0 && _mintAmount <= maxMintAmountPerTx,
-            "Invalid amount"
-        );
-        require(
-            supply.current() + _mintAmount <= maxSupply,
-            "Max supply exceeded"
-        );
-        _;
-    }
-
-    function totalSupply() public view returns (uint256) {
-        return supply.current();
-    }
-
-    function mint(uint256 _mintAmount)
-        public
-        payable
-        mintCompliance(_mintAmount)
-    {
-        require(!paused, "Paused");
+    function mint() public payable {
+        require(supply < maxSupply, "MAX_SUPPLY_EXCEEDED");
         if (msg.sender != owner()) {
-            require(msg.value >= cost * _mintAmount, "Insufficient fund");
+            require(msg.value >= cost, "INSUFFICIENT_FUND");
         }
-        _mintLoop(msg.sender, _mintAmount);
-    }
-
-    function walletOfOwner(address _owner)
-        public
-        view
-        returns (uint256[] memory)
-    {
-        uint256 ownerTokenCount = balanceOf(_owner);
-        uint256[] memory ownedTokenIds = new uint256[](ownerTokenCount);
-        uint256 currentTokenId = 1;
-        uint256 ownedTokenIndex = 0;
-        while (
-            ownedTokenIndex < ownerTokenCount && currentTokenId <= maxSupply
-        ) {
-            address currentTokenOwner = ownerOf(currentTokenId);
-            if (currentTokenOwner == _owner) {
-                ownedTokenIds[ownedTokenIndex] = currentTokenId;
-                ownedTokenIndex++;
-            }
-            currentTokenId++;
-        }
-        return ownedTokenIds;
-    }
-
-    function setPaused(bool _state) public onlyOwner {
-        paused = _state;
+        ++supply;
+        _mint(msg.sender, supply);
     }
 
     function tokenURI(uint256 _tokenId)
@@ -81,40 +32,20 @@ contract Allowlist is ERC721, Ownable {
         override
         returns (string memory)
     {
-        require(_exists(_tokenId), "Invalid id");
-        string memory currentBaseURI = _baseURI();
-        return bytes(currentBaseURI).length > 0 ? currentBaseURI : "";
-    }
-
-    function mintForAddress(uint256 _mintAmount, address _receiver)
-        public
-        mintCompliance(_mintAmount)
-        onlyOwner
-    {
-        _mintLoop(_receiver, _mintAmount);
+        require(_exists(_tokenId), "INVALID_ID");
+        return bytes(uriPrefix).length > 0 ? uriPrefix : "";
     }
 
     function setUriPrefix(string memory _uriPrefix) public onlyOwner {
         uriPrefix = _uriPrefix;
     }
 
-    function withdraw() public onlyOwner {
-        (bool hs, ) = payable(owner()).call{value: address(this).balance}("");
-        require(hs, "err");
-    }
-
     function updateMintingCost(uint _cost) public onlyOwner {
         cost = _cost;
     }
 
-    function _mintLoop(address _receiver, uint256 _mintAmount) internal {
-        for (uint256 i = 0; i < _mintAmount; i++) {
-            supply.increment();
-            _mint(_receiver, supply.current());
-        }
-    }
-
-    function _baseURI() internal view virtual override returns (string memory) {
-        return uriPrefix;
+    function withdraw() public onlyOwner {
+        (bool hs, ) = payable(owner()).call{value: address(this).balance}("");
+        require(hs);
     }
 }

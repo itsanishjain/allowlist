@@ -1,3 +1,68 @@
+## Inspiration
+
+We built this since it's difficult for creators to collect addresses for their projects. We spoke with them and discovered some concerns they were having while making an allowlist for their project. The issues they were facing are:
+
+-   Anyone can easily spam them by creating several accounts.
+-   There is no simple way to collect addresses efficiently and select raffle winners.
+-   There is no easy way to understand their audience
+
+## What it does
+
+It enables creators to collect addresses quickly and conveniently because everything is managed in a single location.
+
+## How we built it
+
+- For everything relating to the wallet, we use web3-react.
+- Firebase is used to store user data.
+- Redis for caching.
+- We use NFTs for subscriptions so that any creator can use our service whenever they need it and resell it after their project is finished, allowing them to recoup their initial investment. 
+- We can also easily gate certain areas of our applications with our NFTs.
+
+## Challenges we ran into
+
+During the development of this application, we discovered that two smart contracts on two separate chains can have the same address.
+
+We had a lot of problems connecting Walletconnect because it didn't work for Testnets by default, so we had to tweak the internals.
+
+
+## Accomplishments that we're proud of
+
+Incorporating NFT support into the software.
+ 
+We are in a new era when NFT is the next big thing in Web3, yet we all know that a simple NFT project with no utilities will not succeed.
+
+So adding value in the form of a decent utility is crucial, and that is what we hope to accomplish with our project.
+
+This project, and what we've contributed so far, is just the start, and it's a great illustration of how we can integrate the software with NFT and make it worthwhile to hold.
+
+## What we learned
+
+
+We're both new to this space, and the prospect of writing our smart contract and deploying it on the Polygon Mainnet is daunting.
+
+Using Canva and Figma, we created and designed our NFT pass.
+
+We had some challenges with incorporating the complete website and gating with NFTs, but in the end, we built what we wanted and learned a lot in the process.
+
+## What's next for Allowlist
+
+The features we have so far are only a small part of what we believe we can offer. We're going to create a slew of tools to assist creators/artists in obtaining the finest possible allowlist for their projects.
+
+What's next:
+
+- Using Twitter and Discord to authorize projects so that users can't spam their allowlist
+
+- Filtering users with multiple accounts automatically by keeping track of their transaction activities
+
+- Adding support for multiple wallets to the login process
+
+- A tool that allows the creators to obtain a sense of how their mint day would appear by gathering information about the addresses that register on our site
+
+
+***
+
+## NOTES:
+
 ### Legends:
 
 - ??? = "Should we do this?"
@@ -163,3 +228,6 @@
 
 
 
+### Contract 
+
+> https://polygonscan.com/address/0x7dfE584536C439DaE59198Ac13691Eabf06B35fd#code
