@@ -3,11 +3,27 @@ import { useWeb3React } from "@web3-react/core";
 import { Contract, providers } from "ethers";
 
 import { abi } from "../smartContract";
-import { connectors, RPC_NETWORK_URLS } from "../utils/connectors";
+import { connectors } from "../utils/connectors";
 import { ALLOWLIST_CONTRACT } from "../utils/constants";
 import Loader from "../components/Loader";
 
 export const UserContext = createContext();
+
+import {
+  INFURA_MAINNET_URL,
+  INFURA_ROPSTEN_URL,
+  INFURA_RINKEBY_URL,
+  ALCHEMY_POLYGON_MAINNET_URL,
+  ALCHEMY_POLYGON_MUMBAI_URL,
+} from "../utils/constants";
+
+const RPC_NETWORK_URLS = {
+  1: INFURA_MAINNET_URL,
+  3: INFURA_ROPSTEN_URL,
+  4: INFURA_RINKEBY_URL,
+  137: ALCHEMY_POLYGON_MAINNET_URL,
+  80001: ALCHEMY_POLYGON_MUMBAI_URL,
+};
 
 export const UserContextProvider = ({ children }) => {
   const { account, activate, deactivate, chainId, library } = useWeb3React();
@@ -94,7 +110,8 @@ export const UserContextProvider = ({ children }) => {
         isNFTOwned,
         allowlistNFT,
         isLoggedIn: !!account,
-      }}>
+      }}
+    >
       {isLoading ? <Loader /> : children}
     </UserContext.Provider>
   );

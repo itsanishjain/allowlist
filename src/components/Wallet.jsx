@@ -21,13 +21,14 @@ const Wallet = () => {
   };
 
   return (
-    <div className='space-y-10 max-w-lg mx-auto  shadow-md rounded-md p-8 '>
+    <div className="space-y-10 max-w-lg mx-auto  shadow-md rounded-md p-8 ">
       {!account ? (
-        <div className='flex flex-col space-y-4'>
+        <div className="flex flex-col space-y-4">
           <button onClick={() => connectWallet("injected")}>MetaMask</button>
           <button onClick={() => connectWallet("walletConnect")}>
             WalletConnect
           </button>
+          <button onClick={() => connectWallet("uauth")}>Unstoppable</button>
         </div>
       ) : (
         <>

@@ -29,7 +29,7 @@ const ActivatePass = () => {
       ) : !allowlistNFT.isChainIdWrong ? (
         <Mint />
       ) : (
-        <p>Please connect to Cronos Mainnet [Beta]</p>
+        <p>Please connect to Polygon Mainnet [Beta]</p>
       )}
     </div>
   );
