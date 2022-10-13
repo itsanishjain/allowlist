@@ -36,7 +36,7 @@ const walletConnect = new WalletConnectConnector({
 
 export const uauth = new UAuthConnector({
   clientID: "c944c5d6-4a3d-480a-af46-2663998d146b",
-  redirectUri: "https://allowlist.live",
+  redirectUri: "https://www.allowlist.live",
   // redirectUri: "http://127.0.0.1:3000",
   scope: "openid wallet",
   connectors: { injected, walletConnect },
