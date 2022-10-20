@@ -1,0 +1,21 @@
+_id: req_40913234af0041cbbed550e3b63c4ee5
+type: Request
+parentId: wrk_b6ad550715384d728c8d2811749827c6
+modified: 1666251570692
+created: 1666251309415
+url: https://jsonplaceholder.typicode.com/todos
+name: Get todos
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1666251309416
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

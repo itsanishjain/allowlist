@@ -1,0 +1,21 @@
+_id: req_537173624cca4280b35c64aaf540a7c7
+type: Request
+parentId: wrk_b6ad550715384d728c8d2811749827c6
+modified: 1666251580686
+created: 1666251329438
+url: https://jsonplaceholder.typicode.com/todos/1
+name: Get a todo
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1666163051168.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
