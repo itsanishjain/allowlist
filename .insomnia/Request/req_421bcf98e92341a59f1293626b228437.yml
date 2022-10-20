@@ -1,0 +1,21 @@
+_id: req_421bcf98e92341a59f1293626b228437
+type: Request
+parentId: wrk_b6ad550715384d728c8d2811749827c6
+modified: 1666251870322
+created: 1666251867682
+url: https://jsonplaceholder.typicode.com/photos
+name: Get pictures
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1666118922044.75
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
